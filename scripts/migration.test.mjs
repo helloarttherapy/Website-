@@ -47,6 +47,31 @@ test('legacy redirect targets and section anchors are valid',()=>{
   for(const [from,target] of redirects){const [url,anchor]=target.split('#');assert.ok(exists(url),`Invalid redirect ${from}`);if(anchor){const $=load(read(path.relative(root,fileFor(url))));assert.ok($(`[id="${anchor}"]`).length,`Missing anchor ${target}`);}}
 });
 
-test('contact form describes email drafting and does not claim successful delivery',()=>{
-  const html=read('dist/contact/index.html');assert.ok(html.includes('Prepare email'));assert.ok(html.includes('review it there before sending'));assert.ok(html.includes('mailto:anna@helloarttherapy.com'));
+test('navigation and page copy preserve the original labels and published content',()=>{
+  const $=load(read('dist/index.html'));
+  assert.deepEqual($('.desktop-nav a').map((_,el)=>({label:$(el).text(),href:$(el).attr('href')})).get(),[
+    {label:'What is Art Therapy?',href:'/new-page'}, {label:'How it works',href:'/how-it-works'}, {label:'About',href:'/about-1'}, {label:'Blog',href:'/blog'}, {label:'Contact',href:'/contact'}
+  ]);
+  const original=JSON.parse(read('migration/source-home.json')).collection.collections;
+  const core=[['what-is-art-therapy',1],['what-can-it-help-with',2],['what-i-offer',3],['testimonials',4]];
+  for(const [id,index] of core) assert.equal(text($(`#${id}`).html()),text(original[index].mainContent),`Homepage copy changed in ${id}`);
+  const blog=load(read('dist/blog/index.html'));
+  for(const post of originals) {
+    const card=blog('.post-card').filter((_,el)=>blog(el).find('h2 a').attr('href')===post.fullUrl);
+    assert.equal(text(card.find('.post-excerpt').html()||''),text(post.excerpt||''),`Blog summary changed: ${post.title}`);
+  }
+  assert.equal($('footer .footer-top nav').text().replace(/\s+/g,''),'AboutHowitworksGetintouchBlogInstagramLinkedinSpotify');
+  assert.ok(!read('src/styles/global.css').includes('✳'));
+  assert.ok(!$('body').text().includes('Sometimes, there’s'));
+});
+
+test('contact form retains the original copy and submits to the server endpoint',()=>{
+  const $=load(read('dist/contact/index.html'));
+  assert.equal($('main h1').text(),'Get in touch');
+  assert.equal($('main h2').text(),'Feel free to email or fill in the form to say hello!');
+  assert.equal($('form').attr('action'),'/api/contact');
+  assert.equal($('form').attr('method'),'post');
+  assert.equal($('form button').text(),'Submit');
+  assert.ok($('input[name="lastName"]').is('[required]'));
+  assert.ok(!$('main').text().includes('Prepare email'));
 });

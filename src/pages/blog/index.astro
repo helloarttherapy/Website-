@@ -3,17 +3,7 @@ import Base from '../../layouts/Base.astro';
 import PostCard from '../../components/PostCard.astro';
 import site from '../../data/site.json';
 ---
-<Base title="Words, pictures and things" description="Writing and reflections by Anna Worthington on art, therapy, creativity, relationships and the experience of being human.">
-  <header class="page-heading cream"><p class="eyebrow">The Hello Art Therapy journal</p><h1>Words, pictures<br /><em>and things.</em></h1><span class="flower" aria-hidden="true">✳</span></header>
-  <section class="section blog-section"><div class="blog-toolbar"><p><span id="post-count">{site.posts.length}</span> stories to explore</p><label class="search-label"><span class="visually-hidden">Search stories</span><input id="blog-search" type="search" placeholder="Find a story…" /></label></div><div class="post-grid">{site.posts.map(post=><PostCard post={post} />)}</div><p id="no-results" hidden role="status">No stories found. Try another word.</p></section>
+<Base title="Art Therapy Blog">
+  <header class="page-heading"><h1>Words, pictures and things</h1></header>
+  <section class="section blog-section"><div class="post-grid">{site.posts.map(post=><PostCard post={post} />)}</div></section>
 </Base>
-<script>
-  const input=document.querySelector<HTMLInputElement>('#blog-search');
-  const cards=Array.from(document.querySelectorAll<HTMLElement>('.post-card'));
-  input?.addEventListener('input',()=>{
-    const query=input.value.trim().toLowerCase();let count=0;
-    for(const card of cards){const matches=`${card.dataset.title} ${card.dataset.excerpt}`.includes(query);card.hidden=!matches;if(matches)count++;}
-    const counter=document.querySelector('#post-count');if(counter) counter.textContent=String(count);
-    const empty=document.querySelector<HTMLElement>('#no-results');if(empty)empty.hidden=count>0;
-  });
-</script>

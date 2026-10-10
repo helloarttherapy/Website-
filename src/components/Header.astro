@@ -1,14 +1,17 @@
 ---
-const links = [{href:'/new-page',label:'What is art therapy?'},{href:'/how-it-works',label:'How it works'},{href:'/about-1',label:'About Anna'},{href:'/blog',label:'Blog'},{href:'/contact',label:'Say hello'}];
+const links = [{href:'/new-page',label:'What is Art Therapy?'},{href:'/how-it-works',label:'How it works'},{href:'/about-1',label:'About'},{href:'/blog',label:'Blog'},{href:'/contact',label:'Contact'}];
 const path=Astro.url.pathname;
 ---
 <header class="site-header">
-  <a href="/" class="wordmark" aria-label="Hello Art Therapy home"><span class="flower" aria-hidden="true">✳</span><span>Hello<br />Art Therapy</span></a>
-  <nav class="desktop-nav" aria-label="Main navigation">
-    {links.map(link=><a href={link.href} aria-current={path.startsWith(link.href) ? 'page' : undefined} class:list={[{'nav-cta':link.href==='/contact'}]}>{link.label}{link.href==='/contact' && <span aria-hidden="true">↗</span>}</a>)}
+  <nav class="desktop-nav nav-left" aria-label="Main navigation">
+    {links.slice(0,3).map(link=><a href={link.href} aria-current={path.startsWith(link.href)?'page':undefined}>{link.label}</a>)}
+  </nav>
+  <a href="/" class="wordmark">Hello Art Therapy</a>
+  <nav class="desktop-nav nav-right" aria-label="Blog and contact">
+    {links.slice(3).map(link=><a href={link.href} aria-current={path.startsWith(link.href)?'page':undefined}>{link.label}</a>)}
   </nav>
   <details class="mobile-menu">
-    <summary aria-label="Navigation menu"><span>Menu</span><span aria-hidden="true">☰</span></summary>
-    <nav aria-label="Mobile navigation">{links.map(link=><a href={link.href} aria-current={path.startsWith(link.href)?'page':undefined}>{link.label}<span aria-hidden="true">↗</span></a>)}</nav>
+    <summary aria-label="Navigation menu"><span class="menu-icon" aria-hidden="true"></span></summary>
+    <nav aria-label="Mobile navigation">{links.map(link=><a href={link.href} aria-current={path.startsWith(link.href)?'page':undefined}>{link.label}</a>)}</nav>
   </details>
 </header>

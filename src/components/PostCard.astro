@@ -1,12 +1,10 @@
 ---
-interface Props { post: {title:string;url:string;date:string;displayDate:string;excerpt:string;image?:string;readingMinutes:number}; }
+interface Props { post: {title:string;url:string;date:string;displayDate:string;excerpt:string;image?:string}; }
 const {post}=Astro.props;
-const date=post.displayDate;
 ---
-<article class="post-card" data-title={post.title.toLowerCase()} data-excerpt={post.excerpt.toLowerCase()}>
-  <a href={post.url} class="post-image" tabindex="-1" aria-hidden="true">{post.image?<img src={post.image} alt="" loading="lazy" decoding="async" />:<span class="flower">✳</span>}</a>
-  <p class="post-meta"><time datetime={post.date}>{date}</time> · {post.readingMinutes} min read</p>
+<article class="post-card">
+  {post.image && <a href={post.url} class="post-image" tabindex="-1" aria-hidden="true"><img src={post.image} alt="" loading="lazy" decoding="async" /></a>}
   <h2><a href={post.url}>{post.title}</a></h2>
-  <p>{post.excerpt}</p>
-  <a class="text-link" href={post.url} aria-label={`Read ${post.title}`}>Read the story <span aria-hidden="true">↗</span></a>
+  {post.excerpt && <div class="post-excerpt" set:html={post.excerpt} />}
+  <p class="post-meta"><time datetime={post.date}>{post.displayDate}</time></p>
 </article>

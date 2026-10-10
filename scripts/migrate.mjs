@@ -9,7 +9,7 @@ import sharp from 'sharp';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const names = ['home', 'therapy', 'how', 'about', 'contact', 'blog'];
 const sources = Object.fromEntries(await Promise.all(names.map(async name => [name, JSON.parse(await fs.readFile(`/private/tmp/hello-art-${name}.json`, 'utf8'))])));
-const assetMap = {};
+const assetMap = JSON.parse(await fs.readFile(path.join(root, 'migration/assets.json'), 'utf8'));
 const urls = new Set();
 function scan(value) {
   if (typeof value === 'string') {
@@ -81,7 +81,7 @@ const posts=sources.blog.items.map(item=>{
   excerptDoc('br').replaceWith(' ');
   excerptDoc('p,h2,h3,h4,blockquote,figcaption,li').append(' ');
   const text=excerptDoc.text().replace(/\s+/g,' ').trim();
-  return {title:item.title,url:item.fullUrl,slug:item.urlId,date:new Date(item.publishOn).toISOString(),displayDate:new Date(item.publishOn).toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric',timeZone:sources.blog.website.timeZone}),tags:item.tags||[],body,image:local(item.assetUrl),excerpt:text.slice(0,185).replace(/\s+\S*$/,'')+'…',readingMinutes:Math.max(1,Math.ceil(text.split(/\s+/).length/220))};
+  return {title:item.title,url:item.fullUrl,slug:item.urlId,date:new Date(item.publishOn).toISOString(),displayDate:new Date(item.publishOn).toLocaleDateString('en-US',{day:'numeric',month:'long',year:'numeric',timeZone:sources.blog.website.timeZone}),tags:item.tags||[],body,image:local(item.assetUrl),excerpt:cleanHtml(item.excerpt),readingMinutes:Math.max(1,Math.ceil(text.split(/\s+/).length/220))};
 });
 const data={hero,poster,portrait:local(portraitUrl),social,definition:cleanHtml(homeCollections[1].mainContent),support:cleanHtml(homeCollections[2].mainContent),offer:cleanHtml(homeCollections[3].mainContent),testimonials:cleanHtml(homeCollections[4].mainContent),therapy:cleanHtml(sources.therapy.mainContent),how:cleanHtml(get('how',1).mainContent),about:cleanHtml(get('about',1).mainContent),posts};
 await fs.writeFile(path.join(root,'src/data/site.json'),JSON.stringify(data,null,2)+'\n');

@@ -3,8 +3,8 @@ import Base from '../layouts/Base.astro';
 import Invitation from '../components/Invitation.astro';
 import site from '../data/site.json';
 ---
-<Base title="How it works" description="Explore individual, parent and child, and group art therapy sessions with Anna Worthington. In person in Fitzroy, Victoria, or online.">
-  <header class="page-heading blue"><p class="eyebrow">No art experience needed</p><h1>Say hello to the<br /><em>creative process.</em></h1><span class="flower" aria-hidden="true">✳</span></header>
+<Base title="How it works">
+  <header class="page-heading"><h1>How it works</h1></header>
   <section class="prose article-body sessions" id="sessions" set:html={site.how} />
   <Invitation />
 </Base>

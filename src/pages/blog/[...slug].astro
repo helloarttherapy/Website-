@@ -1,20 +1,16 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Invitation from '../../components/Invitation.astro';
 import PostCard from '../../components/PostCard.astro';
 import site from '../../data/site.json';
 export function getStaticPaths(){
-  const posts=site.posts.map((post,index)=>({params:{slug:post.slug},props:{post,index,tag:undefined}}));
-  const tags=[...new Set(site.posts.flatMap(post=>post.tags))].map(tag=>({params:{slug:`tag/${tag.replace(/ /g,'+')}`},props:{tag,post:undefined,index:-1}}));
+  const posts=site.posts.map(post=>({params:{slug:post.slug},props:{post,tag:undefined}}));
+  const tags=[...new Set(site.posts.flatMap(post=>post.tags))].map(tag=>({params:{slug:`tag/${tag.replace(/ /g,'+')}`},props:{tag,post:undefined}}));
   return [...posts,...tags];
 }
-const {post,tag,index}=Astro.props;
-const date=post?.displayDate;
-const related=site.posts.filter((_,i)=>i!==index).slice(0,3);
+const {post,tag}=Astro.props;
 ---
-{tag ? <Base title={`Stories about ${tag}`}><header class="page-heading cream"><p class="eyebrow">Explore the journal</p><h1>Stories about<br /><em>{tag}.</em></h1></header><section class="section"><a class="text-link" href="/blog">← All stories</a><div class="post-grid tag-posts">{site.posts.filter(p=>p.tags.includes(tag)).map(p=><PostCard post={p} />)}</div></section></Base> : post && <Base title={post.title} description={post.excerpt} image={post.image} article date={post.date}>
-  <header class="article-heading"><a class="text-link" href="/blog">← Back to the journal</a><p class="eyebrow"><time datetime={post.date}>{date}</time> · {post.readingMinutes} min read</p><h1>{post.title}</h1><p>By Anna Worthington</p>{post.image && <img class="article-cover" src={post.image} alt="" fetchpriority="high" />}</header>
+{tag ? <Base title={tag}><header class="page-heading"><h1>Words, pictures and things</h1><p>Posts tagged {tag}</p></header><section class="section"><div class="post-grid">{site.posts.filter(p=>p.tags.includes(tag)).map(p=><PostCard post={p} />)}</div></section></Base> : post && <Base title={post.title} image={post.image} article date={post.date}>
+  <header class="article-heading"><p class="post-meta"><time datetime={post.date}>{post.displayDate}</time></p><h1>{post.title}</h1>{post.image && <img class="article-cover" src={post.image} alt="" fetchpriority="high" />}</header>
   <article class="prose article-body blog-body" set:html={post.body} />
   {post.tags.length>0 && <nav class="article-tags" aria-label="Article topics">{post.tags.map(t=><a href={`/blog/tag/${encodeURIComponent(t).replace(/%20/g,'+')}`}>{t}</a>)}</nav>}
-  <section class="section"><div class="section-heading"><h2>A little more to explore.</h2><a class="text-link" href="/blog">All stories ↗</a></div><div class="post-grid">{related.map(p=><PostCard post={p} />)}</div></section><Invitation />
 </Base>}

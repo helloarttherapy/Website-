@@ -3,8 +3,8 @@ import Base from '../layouts/Base.astro';
 import Invitation from '../components/Invitation.astro';
 import site from '../data/site.json';
 ---
-<Base title="What is art therapy?" description="Anna Worthington explores art therapy, creative expression and the therapeutic relationship. You do not need art experience to begin.">
-  <header class="page-heading pink"><p class="eyebrow">Curiosity is a good place to start</p><h1>What is<br /><em>art therapy?</em></h1><span class="flower" aria-hidden="true">✳</span></header>
+<Base title="What is Art Therapy?">
+  <header class="page-heading"><h1>What is Art Therapy?</h1></header>
   <article class="prose article-body" set:html={site.therapy.replace(/^\s*<h2>What is Art Therapy\?<\/h2>/,'')} />
   <Invitation />
 </Base>

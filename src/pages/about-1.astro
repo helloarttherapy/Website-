@@ -3,8 +3,8 @@ import Base from '../layouts/Base.astro';
 import Invitation from '../components/Invitation.astro';
 import site from '../data/site.json';
 ---
-<Base title="About Anna" image={site.portrait} description="Meet Anna Worthington, an expressive arts therapist in Melbourne. Explore her journey, experience and education.">
-  <header class="page-heading cream"><p class="eyebrow">Hello, I’m Anna</p><h1>Creativity.<br />Connection.<br /><em>Curiosity.</em></h1><span class="flower" aria-hidden="true">✳</span></header>
+<Base title="About Anna" image={site.portrait}>
+  <header class="page-heading"><h1>About Anna</h1></header>
   <section class="prose article-body about-body" id="journey" set:html={site.about} />
   <Invitation />
 </Base>
