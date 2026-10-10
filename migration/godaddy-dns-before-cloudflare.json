@@ -1,0 +1,19 @@
+{
+  "domain": "annaworthingtonarttherapy.com",
+  "observedDate": "2026-10-10",
+  "source": "Signed-in GoDaddy DNS Records and DNSSEC panels",
+  "dnssecEnabled": false,
+  "records": [
+    {"type":"A","name":"@","content":"198.185.159.144","ttl":600},
+    {"type":"A","name":"@","content":"198.185.159.145","ttl":600},
+    {"type":"A","name":"@","content":"198.49.23.144","ttl":600},
+    {"type":"A","name":"@","content":"198.49.23.145","ttl":600},
+    {"type":"NS","name":"@","content":"ns03.domaincontrol.com.","ttl":3600},
+    {"type":"NS","name":"@","content":"ns04.domaincontrol.com.","ttl":3600},
+    {"type":"CNAME","name":"gadl7ahjs5bdcllfe6k3","content":"verify.squarespace.com.","ttl":3600},
+    {"type":"CNAME","name":"www","content":"ext-sq.squarespace.com.","ttl":3600},
+    {"type":"CNAME","name":"_domainconnect","content":"_domainconnect.gd.domaincontrol.com.","ttl":3600},
+    {"type":"SOA","name":"@","content":"Primary nameserver: ns03.domaincontrol.com.","ttl":3600}
+  ],
+  "notes": "GoDaddy displayed 10 records. The SOA panel exposes only the primary nameserver. No MX or TXT email records are present on this website domain. Anna's Google Workspace mailbox uses the separate helloarttherapy.com domain. Cloudflare's scan missed the Squarespace verification CNAME, which was added manually. Imported web records remain DNS-only and point to Squarespace until website cutover."
+}

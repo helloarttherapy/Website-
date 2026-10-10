@@ -10,7 +10,7 @@ test('successful contact delivery uses the fixed recipient and visitor reply add
   let sent;
   const response=await handleContact(request(),environment(async email=>{sent=email;return {messageId:'test-id'};}));
   assert.equal(response.status,200);assert.equal((await response.json()).message,'Thank you, Anna will contact you shortly.');
-  assert.equal(sent.to,'anna@helloarttherapy.com');assert.equal(sent.from.email,'website@helloarttherapy.com');assert.equal(sent.replyTo,valid.email);
+  assert.equal(sent.to,'anna@helloarttherapy.com');assert.equal(sent.from.email,'website@annaworthingtonarttherapy.com');assert.equal(sent.replyTo,valid.email);
   assert.ok(sent.text.includes(valid.message));assert.equal(response.headers.get('Cache-Control'),'no-store');
 });
 test('delivery failure or missing email configuration never returns a thank-you',async()=>{

@@ -2,7 +2,7 @@ const THANK_YOU = 'Thank you, Anna will contact you shortly.';
 const FAILURE = 'Unable to submit form. Please try again later.';
 const INVALID = 'Invalid form data.';
 const RECIPIENT = 'anna@helloarttherapy.com';
-const SENDER = 'website@helloarttherapy.com';
+const SENDER = 'website@annaworthingtonarttherapy.com';
 const MAX_BODY_BYTES = 24000;
 
 async function readBody(request) {

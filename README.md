@@ -40,23 +40,25 @@ This is an Astro static build deployed with **Cloudflare Workers Static Assets**
 2. Build command: `npm run build`.
 3. Deploy command: `npx wrangler deploy --profile hello-art-therapy` locally, or `npx wrangler deploy` in Cloudflare's Git build environment.
 4. For manual deployment, create the separate profile with `npx wrangler auth create hello-art-therapy`, sign in as `anna@helloarttherapy.com`, then run `npm run deploy`. The deploy script explicitly uses this profile, and `wrangler.jsonc` pins Anna's account (`f42f869e89836bba54e556cb172b1226`). Cloudflare requires the account email to be verified before publishing Workers. For CI, use Cloudflare's Git integration or repository secrets; never commit tokens.
-5. Verify the generated workers.dev address before adding the existing custom domain in Cloudflare. Domain cutover and retiring Squarespace require a separate migration decision.
+5. Verify the generated workers.dev address before connecting the custom domain. The 10 October 2026 launch deployment is tested on `https://hello-art-therapy.hello-art-therapy.workers.dev/`. The custom-domain cutover is prepared but pending approval to replace the five old Squarespace website records. Do not cancel Squarespace billing or delete its account as part of DNS cutover.
 
 The direct contact endpoint requires Workers; a static-only Pages deployment will not provide form delivery.
 
 ## Contact
 
-The rebuilt form posts directly to `/api/contact`, preserving the original fields, Submit label, thank-you and error messages. The Worker sends to `anna@helloarttherapy.com` from `website@helloarttherapy.com`, with the visitor's address as Reply-To. It validates inputs, limits body size, checks the request origin, uses a honeypot and rate limits repeat submissions. It does not log or store enquiry contents. A direct email link remains available.
+The rebuilt form posts directly to `/api/contact`, preserving the original fields, Submit label, thank-you and error messages. The Worker sends to `anna@helloarttherapy.com` from `website@annaworthingtonarttherapy.com`, with the visitor's address as Reply-To. It validates inputs, limits body size, checks the request origin, uses a honeypot and rate limits repeat submissions. It does not log or store enquiry contents. A direct email link remains available.
 
-**Activation is pending.** The checked-in configuration intentionally has no `EMAIL` binding until the sending domain and destination are configured. Submissions return HTTP 503 and the original error message when email is unavailable; they never report success without provider acceptance. The published preview still runs the earlier email-draft version. Do not deploy the direct-submission version before completing email setup.
+**Email delivery is active and tested.** On 10 October 2026, Cloudflare accepted a labelled launch test from the isolated preview, the form displayed its original thank-you message, and the email arrived in Anna's Google Workspace Inbox. The same tested Worker and assets are deployed to the production Workers address. Unit tests mock the provider and send no actual mail.
 
-To activate:
+Cloudflare Email Routing is enabled on `annaworthingtonarttherapy.com`, which had no existing MX records. Anna's separate Google Workspace mail domain, `helloarttherapy.com`, was not changed. `anna@helloarttherapy.com` is a verified destination in Anna's account. The `EMAIL` send binding permits only that destination and the fixed website sender. [Cloudflare documents free sending to verified destinations when Email Routing is configured](https://developers.cloudflare.com/email-service/platform/pricing/); no paid Email Sending subscription was purchased.
 
-1. Inspect the full `helloarttherapy.com` DNS records at its current provider, Squarespace. If moving DNS to Cloudflare, reproduce every existing record and preserve Google Workspace MX, SPF, DKIM and DMARC settings before changing nameservers. The mail domain and `annaworthingtonarttherapy.com` are separate domains.
-2. Onboard the sending domain in Anna's Cloudflare Email Service account using [Cloudflare's setup instructions](https://developers.cloudflare.com/email-service/get-started/send-emails/). Configure outbound Email Sending without replacing the Google Workspace inbox's root MX records.
-3. `anna@helloarttherapy.com` is already verified as a destination in Anna's account. The Email Sending dashboard currently requests Workers Paid; Cloudflare also documents free sending to verified destinations when only Email Routing is configured. Confirm the appropriate setup after domain onboarding, without replacing Workspace's root MX records.
-4. Add a `send_email` binding named `EMAIL`, restricted to destination `anna@helloarttherapy.com` and allowed sender `website@helloarttherapy.com`.
-5. Test provider acceptance and receipt in Anna's inbox, then deploy and verify the live form. Unit tests mock the provider and send no actual mail.
+If delivery fails or the binding is absent, the form returns HTTP 503 and its original error message. It never reports success without provider acceptance.
+
+## Domain connection
+
+The domain remains registered at GoDaddy. Its nameservers are now `andronicus.ns.cloudflare.com` and `chelsea.ns.cloudflare.com`, and Anna's Cloudflare zone is active. The original GoDaddy records are backed up in `migration/godaddy-dns-before-cloudflare.json`. All seven service records were imported before the nameserver change; the Squarespace verification record and GoDaddy Domain Connect record are retained.
+
+The four root Squarespace A records and the `www` Squarespace CNAME still serve the original website. Replacing these five records with the production Worker's custom domains is awaiting approval. Cloudflare's Email Routing MX, SPF and DKIM records are separate from those five web records.
 
 ## Migration checks before domain cutover
 
