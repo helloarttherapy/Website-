@@ -30,6 +30,10 @@ The therapy essay has section navigation, an artwork/greeting opening and a sing
 
 The compact pill CTAs use a muted charcoal teal. Homepage list gaps are halved, and the offer section uses the warm grey sampled from the top right of Anna's portrait. The sessions introduction removes the forced heading break and the grey callout box. The footer keeps the original cyan, logo and labels with horizontal link groups and a separate copyright row. These refinements do not change the fonts or article text.
 
+On mobile, the therapy essay's section menu stays below the header and closes after an anchor is selected. Footer links align left, with the contact pill beneath them; cyan continues through the bottom safe area and page canvas. Desktop pages show the book announcement immediately below the navigation.
+
+`src/data/podcast-episodes.json` maps the seven podcast articles to their verified Spotify episode IDs and YouTube videos. Each has direct links to both platforms. The original Spotify players and podcast caption links now use the matching `open.spotify.com` episode, without changing article words or the archived source snapshots. Update this mapping when adding another companion episode.
+
 ## Search metadata
 
 `src/lib/seo.mjs` supplies page-specific descriptions using complete sentences from the original copy, plus WebSite, Person, page and breadcrumb structured data. Articles include their original author, headline, publication date, image and tags as BlogPosting data; archives use CollectionPage. No ratings, addresses or clinical claims are added. Canonicals, social previews, robots and sitemap use the live original custom domain; the 404 page is noindex and excluded from the sitemap. Local image dimensions reserve space while images load. The launch audit verified all 102 sitemap pages return HTTP 200 with canonical links and descriptions, plus robots, sitemap, bundled fonts and stylesheet. Search Console submission remains separate.
@@ -49,6 +53,8 @@ The direct contact endpoint requires Workers; a static-only Pages deployment wil
 ## Contact
 
 The rebuilt form posts directly to `/api/contact`, preserving the original fields, Submit label and error message. At Anna's request, the invitation now ends with a full stop, and the confirmation reads “Thank you for message, I will be in touch shortly.” The Worker sends to `anna@helloarttherapy.com` from `website@annaworthingtonarttherapy.com`, with the visitor's address as Reply-To. It validates inputs, limits body size, checks the request origin, uses a honeypot and rate limits repeat submissions. It does not log or store enquiry contents. A direct email link remains available.
+
+After provider-confirmed success, the form and its instruction are hidden and focus moves to the visible thank-you message. A failed submission keeps the form and visitor's message available for retry. Both interface states were verified locally with controlled responses that send no email.
 
 **Email delivery is active and tested.** On 10 October 2026, Cloudflare accepted a labelled launch test from the isolated preview, the form displayed its original thank-you message, and the email arrived in Anna's Google Workspace Inbox. The same tested Worker and assets are deployed to the public custom domain and production Workers address. A second labelled test submitted through the public contact page received provider acceptance and the original thank-you message. Unit tests mock the provider and send no actual mail.
 

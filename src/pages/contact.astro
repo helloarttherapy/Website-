@@ -6,15 +6,16 @@ import Base from '../layouts/Base.astro';
   <section class="contact-section section" id="contact-form">
     <div class="contact-introduction"><h2>Feel free to email or fill in the form to say hello.</h2><p>Email: <a class="contact-email" href="mailto:anna@helloarttherapy.com">anna@helloarttherapy.com</a></p></div>
     <div>
-      <p>Or fill in the form below:</p>
+      <p id="form-introduction">Or fill in the form below:</p>
       <form id="enquiry-form" action="/api/contact" method="post">
         <fieldset><legend>Name <span>(required)</span></legend><div class="form-row"><label>First Name<input name="firstName" autocomplete="given-name" required maxlength="100" /></label><label>Last Name<input name="lastName" autocomplete="family-name" required maxlength="100" /></label></div></fieldset>
         <label>Email Address <span>(required)</span><input name="email" type="email" autocomplete="email" required maxlength="254" /></label>
         <label>Subject <span>(required)</span><input name="subject" required maxlength="200" /></label>
         <label>Message <span>(required)</span><textarea name="message" rows="6" required maxlength="5000"></textarea></label>
         <div class="honeypot" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off" /></label></div>
-        <button class="button" type="submit">Submit</button><p id="form-status" role="status" aria-live="polite"></p>
+        <button class="button" type="submit">Submit</button>
       </form>
+      <p id="form-status" role="status" aria-live="polite" tabindex="-1"></p>
     </div>
   </section>
 </Base>
@@ -37,6 +38,10 @@ import Base from '../layouts/Base.astro';
       if (!response.ok || result.ok !== true) throw new Error('Submission failed');
       status.textContent = 'Thank you for message, I will be in touch shortly.';
       form.reset();
+      form.hidden = true;
+      const introduction = document.querySelector<HTMLElement>('#form-introduction');
+      if (introduction) introduction.hidden = true;
+      status.focus();
     } catch {
       status.textContent = 'Unable to submit form. Please try again later.';
     } finally {

@@ -10,3 +10,15 @@ const { title, links } = Astro.props;
     <nav aria-label={title}>{links.map(link => <a href={link.href}>{link.label}</a>)}</nav>
   </details>
 </aside>
+<script>
+  const outline = document.querySelector<HTMLDetailsElement>('.outline-mobile');
+  outline?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => { outline.open = false; });
+  });
+  outline?.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && outline.open) {
+      outline.open = false;
+      outline.querySelector('summary')?.focus();
+    }
+  });
+</script>

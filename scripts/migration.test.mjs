@@ -30,10 +30,29 @@ test('all 18 original articles retain their full text, title, URL and podcast em
     assert.equal(text(post.body),text(original.body),`Article text changed: ${post.title}`);
     const $=load(original.body);assert.equal(load(post.body)('iframe').length,$('iframe').length,`Podcast missing: ${post.title}`);
     const rendered=load(fs.readFileSync(fileFor(post.url),'utf8'));
+    rendered('.episode-links').remove();
     assert.equal(readableText(rendered('article.blog-body').html()),readableText(post.body),`Rendered article words changed: ${post.title}`);
     assert.equal(rendered('article.blog-body iframe').length,load(post.body)('iframe').length,`Rendered podcast missing: ${post.title}`);
     assert.equal(rendered('article.blog-body img').length,load(post.body)('img').length,`Rendered artwork missing: ${post.title}`);
     assert.ok(read(path.relative(root,fileFor(post.url))).includes(post.title.replace(/&/g,'&amp;').replace(/'/g,'&#39;')) || text(read(path.relative(root,fileFor(post.url)))).includes(post.title));
+  }
+});
+
+test('every podcast article exposes its own Spotify and YouTube episode links',()=>{
+  const episodes=JSON.parse(read('src/data/podcast-episodes.json'));
+  const podcastPosts=site.posts.filter(post=>load(post.body)('iframe[src*="podcasters.spotify.com"]').length);
+  assert.equal(podcastPosts.length,7);
+  assert.deepEqual(Object.keys(episodes).sort(),podcastPosts.map(post=>post.slug).sort());
+  assert.equal(new Set(Object.values(episodes).map(episode=>episode.spotifyId)).size,7);
+  assert.equal(new Set(Object.values(episodes).map(episode=>episode.youtubeId)).size,7);
+  for(const post of podcastPosts){
+    const episode=episodes[post.slug];
+    const $=load(fs.readFileSync(fileFor(post.url),'utf8'));
+    assert.equal($('.episode-links a').length,2,`Missing episode links: ${post.title}`);
+    assert.equal($('.episode-links a').first().attr('href'),`https://open.spotify.com/episode/${episode.spotifyId}`);
+    assert.equal($('.episode-links a').last().attr('href'),`https://www.youtube.com/watch?v=${episode.youtubeId}`);
+    assert.equal($('article.blog-body iframe').attr('src'),`https://open.spotify.com/embed/episode/${episode.spotifyId}`);
+    assert.equal($('article.blog-body [src*="podcasters.spotify.com"], article.blog-body [href*="podcasters.spotify.com"]').length,0);
   }
 });
 

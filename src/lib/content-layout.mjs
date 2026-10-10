@@ -1,4 +1,5 @@
 import { load } from 'cheerio';
+import podcastEpisodes from '../data/podcast-episodes.json' with { type: 'json' };
 
 // Change the structure of the migrated HTML without editing its words.
 function fragment(html) {
@@ -86,6 +87,18 @@ export function aboutLayout(html) {
 export function readableArticle(html, { eagerImage = true } = {}) {
   const $ = fragment(html);
   if (eagerImage) $('img').first().attr('loading', 'eager').attr('fetchpriority', 'high');
+  const originalPlayer = $('iframe[src*="podcasters.spotify.com"]').first().attr('src');
+  const episode = Object.values(podcastEpisodes).find(episode => episode.originalPlayer === originalPlayer);
+  if (episode) {
+    const episodeUrl = `https://open.spotify.com/episode/${episode.spotifyId}`;
+    $('iframe[src*="podcasters.spotify.com"]').attr('src', `https://open.spotify.com/embed/episode/${episode.spotifyId}`).attr('height', '152');
+    // Some original captions pointed at a different article's episode.
+    $('a[href*="podcasters.spotify.com"]').attr('href', episodeUrl);
+    const links = $('<nav>').attr('class', 'episode-links').attr('aria-label', 'Listen or watch this episode');
+    links.append($('<a>').attr('href', episodeUrl).text('Listen on Spotify'));
+    links.append($('<a>').attr('href', `https://www.youtube.com/watch?v=${episode.youtubeId}`).text('Watch on YouTube'));
+    $.root().prepend(links);
+  }
   return $.html();
 }
 
