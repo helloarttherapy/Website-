@@ -18,7 +18,9 @@ Use Node.js 22. Run `npm ci`, then `npm run dev`. Run `npm run check`, `npm run 
 
 Public source snapshots, the original sitemap and an image attribution/provenance map are kept in `migration/`. The original animated hero includes its original star and a static alternative for reduced-motion visitors. The navigation labels, page text, published blog excerpts and cyan footer preserve the Squarespace site. Images and the body font are self-hosted.
 
-Headings use `minerva-modern` at weight 400. Set `PUBLIC_ADOBE_FONTS_CSS` in `.env` and the Cloudflare build environment to Anna's own Adobe Fonts web-project stylesheet containing Minerva Modern Regular; see `.env.example`. Without the stylesheet, headings use the body-font fallback. The Squarespace-provided Adobe integration cannot be treated as Anna's standalone web-font licence. Do not copy the Adobe font binaries into the repository.
+With Anna's approval, the original Minerva Modern typography is approximated with Google Fonts: Belleza for headings and the wordmark, and Tenor Sans for body text. Both are bundled locally through Fontsource, so the site loads the actual fonts without an Adobe account, external font request or Squarespace font integration. The original hero's handwritten lettering remains part of its unchanged artwork.
+
+The content layout groups session options and pricing, pairs Anna's portrait with her introduction and separates Experience and Education. Layout transformations in `src/lib/content-layout.mjs` preserve the source words and their order. Migration checks compare the rendered pages against the original copy.
 
 ## Cloudflare
 
@@ -51,7 +53,7 @@ To activate:
 - Confirm Anna's existing session prices ($140 individual, $150 caregiver/child) and profile details are still accurate. The migration preserves the source's claims and dates.
 - Activate and verify direct form delivery to Anna's inbox.
 - All original article and topic URLs must pass the route audit.
-- Check desktop and mobile navigation, Minerva Modern headings, original artwork, footer colours and contact links.
+- Check desktop and mobile navigation, loaded Google fonts, original artwork, footer colours and contact links.
 - Existing blog comments, Squarespace form submissions, mailing lists, analytics and account settings are not in the public source export and have not been migrated.
 
 Re-importing from live Squarespace is optional and separate from normal builds: download the six JSON snapshots to `/private/tmp/hello-art-{home,therapy,how,about,contact,blog}.json` plus the sitemap, then run `node scripts/migrate.mjs`. Review the resulting diff before committing.

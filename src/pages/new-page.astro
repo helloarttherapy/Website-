@@ -2,9 +2,10 @@
 import Base from '../layouts/Base.astro';
 import Invitation from '../components/Invitation.astro';
 import site from '../data/site.json';
+import { readableArticle } from '../lib/content-layout.mjs';
 ---
 <Base title="What is Art Therapy?">
   <header class="page-heading"><h1>What is Art Therapy?</h1></header>
-  <article class="prose article-body" set:html={site.therapy.replace(/^\s*<h2>What is Art Therapy\?<\/h2>/,'')} />
+  <article class="prose article-body therapy-body" set:html={readableArticle(site.therapy.replace(/^\s*<h2>What is Art Therapy\?<\/h2>/,''))} />
   <Invitation />
 </Base>

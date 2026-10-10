@@ -1,10 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
-import Invitation from '../components/Invitation.astro';
 import site from '../data/site.json';
+import { sessionLayout } from '../lib/content-layout.mjs';
+const sessions = sessionLayout(site.how);
 ---
 <Base title="How it works">
   <header class="page-heading"><h1>How it works</h1></header>
-  <section class="prose article-body sessions" id="sessions" set:html={site.how} />
-  <Invitation />
+  <section class="prose process-intro content-width" set:html={sessions.intro} />
+  <section class="session-options content-width" id="sessions">
+    {sessions.groups.map(group => <section class:list={['session-row', { 'session-pricing': group.title === 'Session pricing' }]}>
+      <h2>{group.title}</h2><div class="prose" set:html={group.body} />
+    </section>)}
+  </section>
 </Base>

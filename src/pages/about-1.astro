@@ -1,10 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
-import Invitation from '../components/Invitation.astro';
 import site from '../data/site.json';
+import { aboutLayout } from '../lib/content-layout.mjs';
+const about = aboutLayout(site.about);
 ---
 <Base title="About Anna" image={site.portrait}>
   <header class="page-heading"><h1>About Anna</h1></header>
-  <section class="prose article-body about-body" id="journey" set:html={site.about} />
-  <Invitation />
+  <section class="about-intro content-width" id="journey"><div class="about-portrait" set:html={about.portrait} /><div class="prose" set:html={about.intro} /></section>
+  <section class="about-details content-width">{about.sections.map(section=><section><h2>{section.title}</h2><div class="prose" set:html={section.body} /></section>)}</section>
 </Base>

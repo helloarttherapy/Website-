@@ -15,3 +15,18 @@ const path=Astro.url.pathname;
     <nav aria-label="Mobile navigation">{links.map(link=><a href={link.href} aria-current={path.startsWith(link.href)?'page':undefined}>{link.label}</a>)}</nav>
   </details>
 </header>
+<script>
+  const menu = document.querySelector<HTMLDetailsElement>('.mobile-menu');
+  document.addEventListener('pointerdown', event => {
+    if (menu?.open && !menu.contains(event.target as Node)) menu.open = false;
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && menu?.open) {
+      menu.open = false;
+      menu.querySelector('summary')?.focus();
+    }
+  });
+  window.matchMedia('(min-width: 901px)').addEventListener('change', event => {
+    if (event.matches && menu) menu.open = false;
+  });
+</script>

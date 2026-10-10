@@ -14,6 +14,7 @@ const redirects=new Map(redirectLines.map(([from,to])=>[from,to]));
 const fileFor=url=>path.join(root,'dist',decodeURIComponent(url).replace(/^\//,'').replace(/\/$/,'') || '', 'index.html');
 function exists(url){return fs.existsSync(fileFor(url));}
 const text=html=>{const $=load(html);$('script,style,noscript').remove();return $.text().replace(/\s+/g,' ').trim();};
+const readableText=html=>{const $=load(html);$('script,style,noscript').remove();$('br').replaceWith(' ');$('h1,h2,h3,h4,p,li,blockquote,figcaption,a').append(' ');return $.text().replace(/\s+/g,' ').trim();};
 
 test('all published Squarespace sitemap URLs resolve to a page or valid redirect',()=>{
   const urls=[...read('migration/source-sitemap.xml').matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>new URL(m[1]).pathname);
@@ -54,7 +55,7 @@ test('navigation and page copy preserve the original labels and published conten
   ]);
   const original=JSON.parse(read('migration/source-home.json')).collection.collections;
   const core=[['what-is-art-therapy',1],['what-can-it-help-with',2],['what-i-offer',3],['testimonials',4]];
-  for(const [id,index] of core) assert.equal(text($(`#${id}`).html()),text(original[index].mainContent),`Homepage copy changed in ${id}`);
+  for(const [id,index] of core) assert.equal(readableText($(`#${id}`).html()),readableText(original[index].mainContent),`Homepage copy changed in ${id}`);
   const blog=load(read('dist/blog/index.html'));
   for(const post of originals) {
     const card=blog('.post-card').filter((_,el)=>blog(el).find('h2 a').attr('href')===post.fullUrl);
@@ -63,6 +64,16 @@ test('navigation and page copy preserve the original labels and published conten
   assert.equal($('footer .footer-top nav').text().replace(/\s+/g,''),'AboutHowitworksGetintouchBlogInstagramLinkedinSpotify');
   assert.ok(!read('src/styles/global.css').includes('✳'));
   assert.ok(!$('body').text().includes('Sometimes, there’s'));
+});
+
+test('restructured sessions, biography and therapy pages retain the original words in order',()=>{
+  for(const [route,source,title] of [['how-it-works','how','How it works'],['about-1','about','About Anna']]){
+    const $=load(read(`dist/${route}/index.html`));
+    assert.equal(readableText($('main').html()),`${title} ${readableText(site[source])}`,`Page copy changed: ${route}`);
+    assert.equal($('main a[href="/contact"]').length,1,`Duplicate contact button: ${route}`);
+  }
+  const therapy=load(read('dist/new-page/index.html'));
+  assert.equal(readableText(therapy('article').html()),readableText(site.therapy.replace(/^\s*<h2>What is Art Therapy\?<\/h2>/,'')));
 });
 
 test('contact form retains the original copy and submits to the server endpoint',()=>{
