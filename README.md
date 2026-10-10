@@ -4,6 +4,10 @@ Standalone Astro rebuild of Anna Worthington's Squarespace site. This is the **H
 
 Git remote: https://github.com/helloarttherapy/Website-
 
+Cloudflare preview: https://hello-art-therapy.hello-art-therapy.workers.dev
+
+Published to Anna's Cloudflare account. The existing custom domain still points to Squarespace; domain cutover is pending.
+
 ## Local development
 
 Use Node.js 22. Run `npm ci`, then `npm run dev`. Run `npm run check`, `npm run build` and `npm test` before shipping. All published content and imagery are local; the build does not fetch Squarespace.
