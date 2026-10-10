@@ -38,13 +38,24 @@ test('all 18 original articles retain their full text, title, URL and podcast em
   }
 });
 
-test('every podcast article exposes its own Spotify and YouTube episode links',()=>{
+test('every article exposes Spotify and YouTube links, with matching episodes where available',()=>{
   const episodes=JSON.parse(read('src/data/podcast-episodes.json'));
   const podcastPosts=site.posts.filter(post=>load(post.body)('iframe[src*="podcasters.spotify.com"]').length);
   assert.equal(podcastPosts.length,7);
   assert.deepEqual(Object.keys(episodes).sort(),podcastPosts.map(post=>post.slug).sort());
   assert.equal(new Set(Object.values(episodes).map(episode=>episode.spotifyId)).size,7);
   assert.equal(new Set(Object.values(episodes).map(episode=>episode.youtubeId)).size,7);
+  for(const post of site.posts){
+    const $=load(fs.readFileSync(fileFor(post.url),'utf8'));
+    assert.equal($('article.blog-body > .episode-links').length,1,`Missing article media navigation: ${post.title}`);
+    assert.equal($('.episode-links a').length,2,`Missing platform links: ${post.title}`);
+    if(!episodes[post.slug]){
+      assert.equal($('.episode-links a').first().attr('href'),'https://open.spotify.com/show/2HYK9V80ALHtTqfCFbb2lt');
+      assert.equal($('.episode-links a').first().text(),'Spotify podcast');
+      assert.equal($('.episode-links a').last().attr('href'),'https://www.youtube.com/channel/UCO7ijN4udMnVMYP2G2Cgp-A');
+      assert.equal($('.episode-links a').last().text(),'YouTube channel');
+    }
+  }
   for(const post of podcastPosts){
     const episode=episodes[post.slug];
     const $=load(fs.readFileSync(fileFor(post.url),'utf8'));

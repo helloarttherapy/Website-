@@ -32,7 +32,7 @@ The compact pill CTAs use a muted charcoal teal. Homepage list gaps are halved, 
 
 On mobile, the therapy essay's section menu stays below the header and closes after an anchor is selected. Footer links align left, with the contact pill beneath them; cyan continues through the bottom safe area and page canvas. Desktop pages show the book announcement immediately below the navigation.
 
-`src/data/podcast-episodes.json` maps the seven podcast articles to their verified Spotify episode IDs and YouTube videos. Each has direct links to both platforms. The original Spotify players and podcast caption links now use the matching `open.spotify.com` episode, without changing article words or the archived source snapshots. Update this mapping when adding another companion episode.
+Every article has Spotify and YouTube links at the beginning of its reading column. `src/data/podcast-episodes.json` maps the seven podcast articles to their verified Spotify episode IDs and YouTube videos; their links open the matching episode. The other eleven articles link to the Spotify podcast and YouTube channel, labelled accordingly. The original Spotify players and podcast caption links now use the matching `open.spotify.com` episode, without changing article words or the archived source snapshots. Update this mapping when adding another companion episode.
 
 ## Search metadata
 

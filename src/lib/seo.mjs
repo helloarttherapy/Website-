@@ -11,7 +11,7 @@ export function plainText(html) {
 
 // Use complete source sentences; no rewritten marketing or clinical claims.
 export function sourceDescription(html) {
-  const $ = load(readableArticle(html || ''), null, false);
+  const $ = load(readableArticle(html || '', { includePodcastLinks: false }), null, false);
   const paragraph = $('p').filter((_, element) => !$(element).closest('figcaption').length && $(element).text().trim()).first();
   const text = plainText(paragraph.length ? paragraph.html() : html);
   const sentences = Array.from(new Intl.Segmenter('en-AU', { granularity: 'sentence' }).segment(text), part => part.segment.trim());
@@ -27,7 +27,7 @@ export function pageDescription(site, pathname) {
   switch (pathname.replace(/\/$/, '') || '/') {
     case '/': return plainText(load(site.definition, null, false)('h3').html());
     case '/new-page': {
-      const $ = load(readableArticle(site.therapy), null, false);
+      const $ = load(readableArticle(site.therapy, { includePodcastLinks: false }), null, false);
       return sourceDescription($('p').filter((_, element) => $(element).text().startsWith('It is the process of creating')).html());
     }
     case '/how-it-works': return sourceDescription(site.how);

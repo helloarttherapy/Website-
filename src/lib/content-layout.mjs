@@ -84,7 +84,7 @@ export function aboutLayout(html) {
   return { portrait, intro: intro.join(''), sections };
 }
 
-export function readableArticle(html, { eagerImage = true } = {}) {
+export function readableArticle(html, { eagerImage = true, includePodcastLinks = true } = {}) {
   const $ = fragment(html);
   if (eagerImage) $('img').first().attr('loading', 'eager').attr('fetchpriority', 'high');
   const originalPlayer = $('iframe[src*="podcasters.spotify.com"]').first().attr('src');
@@ -94,9 +94,11 @@ export function readableArticle(html, { eagerImage = true } = {}) {
     $('iframe[src*="podcasters.spotify.com"]').attr('src', `https://open.spotify.com/embed/episode/${episode.spotifyId}`).attr('height', '152');
     // Some original captions pointed at a different article's episode.
     $('a[href*="podcasters.spotify.com"]').attr('href', episodeUrl);
-    const links = $('<nav>').attr('class', 'episode-links').attr('aria-label', 'Listen or watch this episode');
-    links.append($('<a>').attr('href', episodeUrl).text('Listen on Spotify'));
-    links.append($('<a>').attr('href', `https://www.youtube.com/watch?v=${episode.youtubeId}`).text('Watch on YouTube'));
+  }
+  if (includePodcastLinks) {
+    const links = $('<nav>').attr('class', 'episode-links').attr('aria-label', episode ? 'Listen or watch this episode' : 'Hello Art Therapy podcast and videos');
+    links.append($('<a>').attr('href', episode ? `https://open.spotify.com/episode/${episode.spotifyId}` : 'https://open.spotify.com/show/2HYK9V80ALHtTqfCFbb2lt').text(episode ? 'Listen on Spotify' : 'Spotify podcast'));
+    links.append($('<a>').attr('href', episode ? `https://www.youtube.com/watch?v=${episode.youtubeId}` : 'https://www.youtube.com/channel/UCO7ijN4udMnVMYP2G2Cgp-A').text(episode ? 'Watch on YouTube' : 'YouTube channel'));
     $.root().prepend(links);
   }
   return $.html();
