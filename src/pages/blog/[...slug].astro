@@ -4,6 +4,7 @@ import PostCard from '../../components/PostCard.astro';
 import site from '../../data/site.json';
 import { sourceDescription } from '../../lib/seo.mjs';
 import { imageSize } from '../../lib/image-size.mjs';
+import { readableArticle } from '../../lib/content-layout.mjs';
 export function getStaticPaths(){
   const posts=site.posts.map(post=>({params:{slug:post.slug},props:{post,tag:undefined}}));
   const tags=[...new Set(site.posts.flatMap(post=>post.tags))].map(tag=>({params:{slug:`tag/${tag.replace(/ /g,'+')}`},props:{tag,post:undefined}}));
@@ -13,8 +14,10 @@ const {post,tag}=Astro.props;
 const coverSize = await imageSize(post?.image);
 const tagDescription = tag ? [`Posts tagged ${tag}`, ...site.posts.filter(p=>p.tags.includes(tag)).slice(0,2).map(p=>p.title)].join(' — ') : undefined;
 ---
-{tag ? <Base title={`Posts tagged ${tag}`} description={tagDescription}><header class="page-heading"><h1>Words, pictures and things</h1><p>Posts tagged {tag}</p></header><section class="section blog-section"><div class="post-grid">{site.posts.filter(p=>p.tags.includes(tag)).map(p=><PostCard post={p} />)}</div></section></Base> : post && <Base title={post.title} description={sourceDescription(post.body)} image={post.image} article date={post.date} keywords={post.tags}>
-  <header class="article-heading"><p class="post-meta"><time datetime={post.date}>{post.displayDate}</time></p><h1>{post.title}</h1>{post.image && <img class="article-cover" src={post.image} alt="" {...coverSize} fetchpriority="high" />}</header>
-  <article class="prose article-body blog-body" set:html={post.body} />
-  {post.tags.length>0 && <nav class="article-tags" aria-label="Article topics">{post.tags.map(t=><a href={`/blog/tag/${encodeURIComponent(t).replace(/%20/g,'+')}`}>{t}</a>)}</nav>}
+{tag ? <Base title={`Posts tagged ${tag}`} description={tagDescription}><header class="page-heading"><h1>Words, pictures and things</h1><p>Posts tagged {tag}</p></header><section class="section blog-section"><div class="post-grid">{site.posts.filter(p=>p.tags.includes(tag)).map((p,index)=><PostCard post={p} featured={index === 0} />)}</div></section></Base> : post && <Base title={post.title} description={sourceDescription(post.body)} image={post.image} article date={post.date} keywords={post.tags}>
+  <header class:list={['article-heading content-width', {'article-with-cover': !!post.image}]}><div><p class="post-meta"><time datetime={post.date}>{post.displayDate}</time></p><h1>{post.title}</h1></div>{post.image && <img class="article-cover" src={post.image} alt="" {...coverSize} fetchpriority="high" />}</header>
+  <div class="reading-layout journal-layout content-width">
+    {post.tags.length>0 && <aside class="journal-topics"><nav class="article-tags" aria-label="Article topics">{post.tags.map(t=><a href={`/blog/tag/${encodeURIComponent(t).replace(/%20/g,'+')}`}>{t}</a>)}</nav></aside>}
+    <article class="prose article-body blog-body" set:html={readableArticle(post.body, { eagerImage: false })} />
+  </div>
 </Base>}

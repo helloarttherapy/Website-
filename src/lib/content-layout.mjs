@@ -9,7 +9,8 @@ function fragment(html) {
     if (chunks.length < 2) return;
     paragraph.replaceWith(chunks.map(chunk => {
       const content = chunk.replace(/^(?:\s|<br>)+|(?:\s|<br>)+$/g, '');
-      return load(content, null, false).text().trim() ? `<p>${content}</p>` : '';
+      const fragment = load(content, null, false);
+      return fragment.text().trim() || fragment('img,iframe,video,audio,picture').length ? `<p>${content}</p>` : '';
     }).join(''));
   });
   return $;
@@ -44,7 +45,7 @@ export function supportLayout(html) {
   let group;
   $.root().children().each((_, element) => {
     if (['h2', 'h3'].includes(element.tagName)) {
-      group = { heading: $.html(element), body: '' };
+      group = { heading: $('<h2>').html($(element).html()).toString(), body: '' };
       groups.push(group);
     } else if (group) group.body += $.html(element);
   });
@@ -67,9 +68,9 @@ export function aboutLayout(html) {
   return { portrait, intro: intro.join(''), sections };
 }
 
-export function readableArticle(html) {
+export function readableArticle(html, { eagerImage = true } = {}) {
   const $ = fragment(html);
-  $('img').first().attr('loading', 'eager').attr('fetchpriority', 'high');
+  if (eagerImage) $('img').first().attr('loading', 'eager').attr('fetchpriority', 'high');
   return $.html();
 }
 
@@ -114,5 +115,7 @@ export function linkedHeading(html, href) {
   const $ = load(html, null, false);
   const heading = $('h2').first();
   heading.html($('<a>').attr('href', href).attr('class', 'section-link').html(heading.html()));
+  // The source's long h3 statements are paragraphs, with their approved type preserved.
+  $('h3').each((_, element) => $(element).replaceWith($('<p>').attr('class', 'intro-statement').html($(element).html())));
   return $.html();
 }

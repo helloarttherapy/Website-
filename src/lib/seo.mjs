@@ -42,17 +42,27 @@ export function pageDescription(site, pathname) {
   }
 }
 
-export function structuredData({ siteUrl, canonical, title, description, image, article, date, keywords, pathname }) {
+export function pageBreadcrumbs(pathname, title) {
+  if (pathname === '/') return [];
+  const trail = [{ name: 'Hello Art Therapy', url: '/' }];
+  if (pathname.startsWith('/blog/')) trail.push({ name: 'Blog', url: '/blog' });
+  trail.push({ name: title, url: pathname });
+  return trail;
+}
+
+export function structuredData({ siteUrl, canonical, title, description, image, article, date, keywords, pathname, breadcrumbs = /** @type {Array<{name: string, url: string}>} */ ([]) }) {
   const url = new URL('/', siteUrl).href;
   const person = { '@type': 'Person', '@id': `${url}#anna`, name: 'Anna Worthington', url: new URL('/about-1', url).href };
   const website = { '@type': 'WebSite', '@id': `${url}#website`, name: 'Hello Art Therapy', url, inLanguage: 'en-AU', publisher: { '@id': person['@id'] } };
   const page = {
-    '@type': article ? 'BlogPosting' : pathname === '/contact' ? 'ContactPage' : pathname === '/about-1' ? 'AboutPage' : 'WebPage',
+    '@type': article ? 'BlogPosting' : pathname === '/contact' ? 'ContactPage' : pathname === '/about-1' ? 'AboutPage' : pathname.startsWith('/blog') ? 'CollectionPage' : 'WebPage',
     '@id': `${canonical}#page`, url: String(canonical),
     [article ? 'headline' : 'name']: title, description, inLanguage: 'en-AU',
     isPartOf: { '@id': website['@id'] },
     ...(article ? { author: { '@id': person['@id'] }, datePublished: date, mainEntityOfPage: String(canonical), ...(image ? { image: [String(image)] } : {}), ...(keywords?.length ? { keywords } : {}) } : {}),
     ...(pathname === '/about-1' ? { mainEntity: { '@id': person['@id'] } } : {})
   };
-  return { '@context': 'https://schema.org', '@graph': [website, person, page] };
+  const breadcrumb = breadcrumbs.length ? [{ '@type': 'BreadcrumbList', '@id': `${canonical}#breadcrumb`, itemListElement: breadcrumbs.map((crumb, index) => ({ '@type': 'ListItem', position: index + 1, name: crumb.name, item: new URL(crumb.url, url).href })) }] : [];
+  if (breadcrumb.length) page.breadcrumb = { '@id': breadcrumb[0]['@id'] };
+  return { '@context': 'https://schema.org', '@graph': [website, person, page, ...breadcrumb] };
 }

@@ -1,13 +1,16 @@
 ---
 import Base from '../layouts/Base.astro';
 import Invitation from '../components/Invitation.astro';
+import PageOutline from '../components/PageOutline.astro';
 import site from '../data/site.json';
 import { therapyLayout } from '../lib/content-layout.mjs';
 const therapy = therapyLayout(site.therapy.replace(/^\s*<h2>What is Art Therapy\?<\/h2>/,''));
 ---
 <Base title="What is Art Therapy?">
   <header class="page-heading"><h1>What is Art Therapy?</h1></header>
-  <article class="prose article-body therapy-body content-width">
+  <div class="reading-layout content-width">
+  <PageOutline title="What is Art Therapy?" links={therapy.sections.map((section,index)=>({href:`#therapy-section-${index}`,label:section.title}))} />
+  <article class="prose article-body therapy-body">
     <div class="therapy-lead"><div set:html={therapy.figure} /><div set:html={therapy.introduction} /></div>
     <div class="therapy-opening" set:html={therapy.opening} />
     {therapy.sections.map((section, index) => <section class="therapy-chapter" aria-labelledby={`therapy-section-${index}`}>
@@ -15,5 +18,6 @@ const therapy = therapyLayout(site.therapy.replace(/^\s*<h2>What is Art Therapy\
       <div set:html={section.body} />
     </section>)}
   </article>
+  </div>
   <Invitation />
 </Base>

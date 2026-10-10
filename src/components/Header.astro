@@ -4,12 +4,9 @@ const path=Astro.url.pathname;
 const current = (href: string) => path === href ? 'page' : path.startsWith(`${href}/`) ? 'location' : undefined;
 ---
 <header class="site-header">
-  <nav class="desktop-nav nav-left" aria-label="Main navigation">
-    {links.slice(0,3).map(link=><a href={link.href} aria-current={current(link.href)}>{link.label}</a>)}
-  </nav>
   <a href="/" class="wordmark">Hello Art Therapy</a>
-  <nav class="desktop-nav nav-right" aria-label="Blog and contact">
-    {links.slice(3).map(link=><a href={link.href} aria-current={current(link.href)}>{link.label}</a>)}
+  <nav class="desktop-nav nav-primary" aria-label="Main navigation">
+    {links.map(link=><a href={link.href} class:list={{ 'nav-contact': link.href === '/contact' }} aria-current={current(link.href)}>{link.label}</a>)}
   </nav>
   <details class="mobile-menu">
     <summary aria-label="Navigation menu"><span class="menu-icon" aria-hidden="true"></span></summary>

@@ -29,6 +29,10 @@ test('all 18 original articles retain their full text, title, URL and podcast em
     assert.equal(post.title,original.title);
     assert.equal(text(post.body),text(original.body),`Article text changed: ${post.title}`);
     const $=load(original.body);assert.equal(load(post.body)('iframe').length,$('iframe').length,`Podcast missing: ${post.title}`);
+    const rendered=load(fs.readFileSync(fileFor(post.url),'utf8'));
+    assert.equal(readableText(rendered('article.blog-body').html()),readableText(post.body),`Rendered article words changed: ${post.title}`);
+    assert.equal(rendered('article.blog-body iframe').length,load(post.body)('iframe').length,`Rendered podcast missing: ${post.title}`);
+    assert.equal(rendered('article.blog-body img').length,load(post.body)('img').length,`Rendered artwork missing: ${post.title}`);
     assert.ok(read(path.relative(root,fileFor(post.url))).includes(post.title.replace(/&/g,'&amp;').replace(/'/g,'&#39;')) || text(read(path.relative(root,fileFor(post.url)))).includes(post.title));
   }
 });
@@ -137,4 +141,24 @@ test('site flow uses existing headings and article cards have one focusable dest
     assert.equal(therapy(element).find(`h2[id="${id}"]`).length,1);
   });
   assert.equal(therapy('article a').filter((_,element)=>!therapy(element).text().trim()&&!therapy(element).find('img').length).length,0);
+});
+
+test('breadcrumbs and section navigation reflect real pages and valid sections',()=>{
+  const routes=['/new-page','/how-it-works','/about-1','/contact','/blog',site.posts[0].url];
+  for(const route of routes){
+    const $=load(fs.readFileSync(fileFor(route),'utf8'));
+    const schema=JSON.parse($('script[type="application/ld+json"]').html());
+    const trail=schema['@graph'].find(entity=>entity['@type']==='BreadcrumbList');
+    assert.equal(trail.itemListElement.at(-1).item,`https://www.annaworthingtonarttherapy.com${route}`);
+    const labels=$('.breadcrumbs li').map((_,element)=>$(element).text().trim()).get();
+    assert.deepEqual(trail.itemListElement.map(item=>item.name),labels);
+    $('a[href^="#"]').each((_,element)=>{
+      const id=$(element).attr('href').slice(1);
+      assert.equal($(`[id="${id}"]`).length,1,`Broken section link in ${route}: ${id}`);
+    });
+  }
+  const $=load(read('dist/index.html'));
+  assert.equal($('.breadcrumbs').length,0);
+  assert.equal($('#what-is-art-therapy h3').length,0,'Definition should be a paragraph, not a navigation heading');
+  assert.equal($('#what-can-it-help-with h2').length,2);
 });

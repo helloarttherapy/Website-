@@ -4,9 +4,9 @@ import Base from '../layouts/Base.astro';
 <Base title="Get in touch">
   <header class="page-heading"><h1>Get in touch</h1></header>
   <section class="contact-section section" id="contact-form">
-    <div><h2>Feel free to email or fill in the form to say hello!</h2></div>
+    <div class="contact-introduction"><h2>Feel free to email or fill in the form to say hello!</h2><p>Email: <a class="contact-email" href="mailto:anna@helloarttherapy.com">anna@helloarttherapy.com</a></p></div>
     <div>
-      <p>Email: <a class="contact-email" href="mailto:anna@helloarttherapy.com">anna@helloarttherapy.com</a><br /><br />Or fill in the form below:</p>
+      <p>Or fill in the form below:</p>
       <form id="enquiry-form" action="/api/contact" method="post">
         <fieldset><legend>Name <span>(required)</span></legend><div class="form-row"><label>First Name<input name="firstName" autocomplete="given-name" required maxlength="100" /></label><label>Last Name<input name="lastName" autocomplete="family-name" required maxlength="100" /></label></div></fieldset>
         <label>Email Address <span>(required)</span><input name="email" type="email" autocomplete="email" required maxlength="254" /></label>

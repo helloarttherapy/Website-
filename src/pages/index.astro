@@ -2,6 +2,8 @@
 import Base from '../layouts/Base.astro';
 import site from '../data/site.json';
 import { supportLayout, linkedHeading } from '../lib/content-layout.mjs';
+import { imageSize } from '../lib/image-size.mjs';
+const portraitSize = await imageSize(site.portrait);
 ---
 <Base>
   <section class="hero" id="intro" aria-labelledby="hero-title">
@@ -11,7 +13,7 @@ import { supportLayout, linkedHeading } from '../lib/content-layout.mjs';
   </section>
   <section class="intro-section section" id="what-is-art-therapy"><div class="prose intro-copy" set:html={linkedHeading(site.definition, '/new-page')} /></section>
   <section class="support-section section" id="what-can-it-help-with"><div class="prose support-copy" set:html={supportLayout(site.support)} /></section>
-  <section class="offer-section section" id="what-i-offer"><div class="prose" set:html={linkedHeading(site.offer, '/how-it-works')} /></section>
+  <section class="offer-section section" id="what-i-offer"><div class="offer-layout"><div class="prose" set:html={linkedHeading(site.offer, '/how-it-works')} /><a class="offer-portrait" href="/about-1"><img src={site.portrait} alt="Anna Worthington" {...portraitSize} loading="lazy" decoding="async" /></a></div></section>
   <section class="testimonials-section section" id="testimonials"><div class="prose testimonials" set:html={site.testimonials} /></section>
   <section class="social-section section" id="social"><h2>Art therapy on social</h2><div class="social-grid">{site.social.map((item,index)=><a href={item.url} aria-label={`View artwork ${index+1} on Instagram`}><img src={item.image} alt={item.alt} loading="lazy" decoding="async" width="640" height="640" /></a>)}</div><a class="button" href="/contact">Get in touch</a></section>
 </Base>

@@ -1,0 +1,12 @@
+---
+interface Props { title: string; links: { href: string; label: string }[]; }
+const { title, links } = Astro.props;
+---
+<aside class="page-outline">
+  <nav class="outline-desktop" aria-label={title}>
+    {links.map(link => <a href={link.href}>{link.label}</a>)}
+  </nav>
+  <details class="outline-mobile"><summary>{title}</summary>
+    <nav aria-label={title}>{links.map(link => <a href={link.href}>{link.label}</a>)}</nav>
+  </details>
+</aside>

@@ -5,5 +5,5 @@ import site from '../../data/site.json';
 ---
 <Base title="Words, pictures and things">
   <header class="page-heading"><h1>Words, pictures and things</h1></header>
-  <section class="section blog-section"><div class="post-grid">{site.posts.map(post=><PostCard post={post} />)}</div></section>
+  <section class="section blog-section"><div class="post-grid">{site.posts.map((post,index)=><PostCard post={post} featured={index === 0} />)}</div></section>
 </Base>
