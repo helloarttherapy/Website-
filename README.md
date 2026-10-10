@@ -6,7 +6,9 @@ Git remote: https://github.com/helloarttherapy/Website-
 
 Cloudflare preview: https://hello-art-therapy.hello-art-therapy.workers.dev
 
-Published to Anna's Cloudflare account. The existing custom domain still points to Squarespace; domain cutover is pending.
+Live website: https://www.annaworthingtonarttherapy.com
+
+Published to Anna's Cloudflare account on 10 October 2026. Both custom domain addresses serve the Astro deployment; the root domain permanently redirects to the canonical HTTPS www address.
 
 ## Local development
 
@@ -30,7 +32,7 @@ The compact pill CTAs use a muted charcoal teal. Homepage list gaps are halved, 
 
 ## Search metadata
 
-`src/lib/seo.mjs` supplies page-specific descriptions using complete sentences from the original copy, plus WebSite, Person, page and breadcrumb structured data. Articles include their original author, headline, publication date, image and tags as BlogPosting data; archives use CollectionPage. No ratings, addresses or clinical claims are added. Canonicals, social previews, robots and sitemap use the original custom domain, ready for migration; the 404 page is noindex and excluded from the sitemap. Local image dimensions reserve space while images load. Search Console submission and live rich-result checks belong to the domain cutover, after the new site is published there.
+`src/lib/seo.mjs` supplies page-specific descriptions using complete sentences from the original copy, plus WebSite, Person, page and breadcrumb structured data. Articles include their original author, headline, publication date, image and tags as BlogPosting data; archives use CollectionPage. No ratings, addresses or clinical claims are added. Canonicals, social previews, robots and sitemap use the live original custom domain; the 404 page is noindex and excluded from the sitemap. Local image dimensions reserve space while images load. The launch audit verified all 102 sitemap pages return HTTP 200 with canonical links and descriptions, plus robots, sitemap, bundled fonts and stylesheet. Search Console submission remains separate.
 
 ## Cloudflare
 
@@ -40,7 +42,7 @@ This is an Astro static build deployed with **Cloudflare Workers Static Assets**
 2. Build command: `npm run build`.
 3. Deploy command: `npx wrangler deploy --profile hello-art-therapy` locally, or `npx wrangler deploy` in Cloudflare's Git build environment.
 4. For manual deployment, create the separate profile with `npx wrangler auth create hello-art-therapy`, sign in as `anna@helloarttherapy.com`, then run `npm run deploy`. The deploy script explicitly uses this profile, and `wrangler.jsonc` pins Anna's account (`f42f869e89836bba54e556cb172b1226`). Cloudflare requires the account email to be verified before publishing Workers. For CI, use Cloudflare's Git integration or repository secrets; never commit tokens.
-5. Verify the generated workers.dev address before connecting the custom domain. The 10 October 2026 launch deployment is tested on `https://hello-art-therapy.hello-art-therapy.workers.dev/`. The custom-domain cutover is prepared but pending approval to replace the five old Squarespace website records. Do not cancel Squarespace billing or delete its account as part of DNS cutover.
+5. The 10 October 2026 launch deployment is live on both custom domains and the Workers preview address. `wrangler.jsonc` records both custom domain routes. Cloudflare's active “Root domain to canonical www” Redirect Rule permanently redirects HTTPS root requests to www, retaining paths and query strings. Always Use HTTPS is enabled. Squarespace billing and its account were not changed.
 
 The direct contact endpoint requires Workers; a static-only Pages deployment will not provide form delivery.
 
@@ -48,7 +50,7 @@ The direct contact endpoint requires Workers; a static-only Pages deployment wil
 
 The rebuilt form posts directly to `/api/contact`, preserving the original fields, Submit label, thank-you and error messages. The Worker sends to `anna@helloarttherapy.com` from `website@annaworthingtonarttherapy.com`, with the visitor's address as Reply-To. It validates inputs, limits body size, checks the request origin, uses a honeypot and rate limits repeat submissions. It does not log or store enquiry contents. A direct email link remains available.
 
-**Email delivery is active and tested.** On 10 October 2026, Cloudflare accepted a labelled launch test from the isolated preview, the form displayed its original thank-you message, and the email arrived in Anna's Google Workspace Inbox. The same tested Worker and assets are deployed to the production Workers address. Unit tests mock the provider and send no actual mail.
+**Email delivery is active and tested.** On 10 October 2026, Cloudflare accepted a labelled launch test from the isolated preview, the form displayed its original thank-you message, and the email arrived in Anna's Google Workspace Inbox. The same tested Worker and assets are deployed to the public custom domain and production Workers address. A second labelled test submitted through the public contact page received provider acceptance and the original thank-you message. Unit tests mock the provider and send no actual mail.
 
 Cloudflare Email Routing is enabled on `annaworthingtonarttherapy.com`, which had no existing MX records. Anna's separate Google Workspace mail domain, `helloarttherapy.com`, was not changed. `anna@helloarttherapy.com` is a verified destination in Anna's account. The `EMAIL` send binding permits only that destination and the fixed website sender. [Cloudflare documents free sending to verified destinations when Email Routing is configured](https://developers.cloudflare.com/email-service/platform/pricing/); no paid Email Sending subscription was purchased.
 
@@ -58,7 +60,7 @@ If delivery fails or the binding is absent, the form returns HTTP 503 and its or
 
 The domain remains registered at GoDaddy. Its nameservers are now `andronicus.ns.cloudflare.com` and `chelsea.ns.cloudflare.com`, and Anna's Cloudflare zone is active. The original GoDaddy records are backed up in `migration/godaddy-dns-before-cloudflare.json`. All seven service records were imported before the nameserver change; the Squarespace verification record and GoDaddy Domain Connect record are retained.
 
-The four root Squarespace A records and the `www` Squarespace CNAME still serve the original website. Replacing these five records with the production Worker's custom domains is awaiting approval. Cloudflare's Email Routing MX, SPF and DKIM records are separate from those five web records.
+After explicit launch approval, the four root Squarespace A records and the `www` Squarespace CNAME were replaced by the production Worker's two custom domains. Cloudflare's Email Routing MX, SPF and DKIM records are separate from those five web records. HTTP redirects to HTTPS; HTTPS root redirects permanently to www. The launch audit verified path and query preservation, all sitemap pages, fonts and the 404 response. Final tested deployment: `bf563c68-e73a-466d-a418-7dbab8c84926`.
 
 ## Migration checks before domain cutover
 

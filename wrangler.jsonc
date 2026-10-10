@@ -4,6 +4,11 @@
   "main": "worker/index.mjs",
   "account_id": "f42f869e89836bba54e556cb172b1226",
   "compatibility_date": "2026-10-10",
+  "workers_dev": true,
+  "routes": [
+    {"pattern": "www.annaworthingtonarttherapy.com", "zone_id": "7d4a8c94bb82daa295529b9d5814d645", "custom_domain": true},
+    {"pattern": "annaworthingtonarttherapy.com", "zone_id": "7d4a8c94bb82daa295529b9d5814d645", "custom_domain": true}
+  ],
   "assets": {
     "binding": "ASSETS",
     "run_worker_first": ["/api/contact"],
