@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.annaworthingtonarttherapy.com/sitemap-index.xml

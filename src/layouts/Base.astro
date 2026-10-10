@@ -1,0 +1,42 @@
+---
+import '@fontsource/lora/400.css';
+import '@fontsource/lora/400-italic.css';
+import '@fontsource/dm-sans/400.css';
+import '@fontsource/dm-sans/500.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import site from '../data/site.json';
+interface Props { title?: string; description?: string; image?: string; article?: boolean; date?: string; }
+const { title, description = 'Say hello to art therapy with Anna Worthington. Personalised creative therapy sessions in Fitzroy, Melbourne, and online. No art experience needed.', image = site.poster, article = false, date } = Astro.props;
+const pageTitle = title ? `${title} — Hello Art Therapy` : 'Hello Art Therapy — Anna Worthington';
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const socialImage = new URL(image, Astro.site);
+---
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#de2b7a" />
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:site_name" content="Hello Art Therapy" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {date && <meta property="article:published_time" content={date} />}
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main"><slot /></main>
+    <Footer />
+  </body>
+</html>

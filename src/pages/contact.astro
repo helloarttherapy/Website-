@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Get in touch" description="Get in touch with Anna Worthington at anna@helloarttherapy.com to ask about art therapy in Fitzroy or online.">
+  <header class="page-heading pink"><p class="eyebrow">Start with a hello</p><h1>Let’s make<br /><em>a connection.</em></h1><span class="flower" aria-hidden="true">✳</span></header>
+  <section class="contact-section section" id="contact-form">
+    <div><h2>Get in touch.</h2><p>Feel free to email or use the form to say hello.</p><a class="contact-email" href="mailto:anna@helloarttherapy.com">anna@helloarttherapy.com ↗</a><p class="location">Fitzroy, Victoria, Australia<br />In person & online sessions</p></div>
+    <form id="enquiry-form"><div class="form-row"><label>First name <span aria-hidden="true">*</span><input name="firstName" autocomplete="given-name" required maxlength="100" /></label><label>Last name<input name="lastName" autocomplete="family-name" maxlength="100" /></label></div><label>Email address <span aria-hidden="true">*</span><input name="email" type="email" autocomplete="email" required maxlength="254" /></label><label>Subject <span aria-hidden="true">*</span><input name="subject" required maxlength="200" /></label><label>Message <span aria-hidden="true">*</span><textarea name="message" rows="6" required maxlength="5000"></textarea></label><p class="form-note">This form prepares an email in your email app. You can review it there before sending.</p><button class="button" type="submit">Prepare email <span aria-hidden="true">↗</span></button><p id="form-status" role="status"></p><noscript><p>Please email <a href="mailto:anna@helloarttherapy.com">anna@helloarttherapy.com</a> directly.</p></noscript></form>
+  </section>
+</Base>
+<script>
+  const form=document.querySelector<HTMLFormElement>('#enquiry-form');
+  form?.addEventListener('submit',event=>{
+    event.preventDefault();
+    if(!form.reportValidity()) return;
+    const data=new FormData(form);
+    const name=[data.get('firstName'),data.get('lastName')].filter(Boolean).join(' ');
+    const body=`Hello Anna,\n\n${data.get('message')}\n\n${name}\n${data.get('email')}`;
+    window.location.href=`mailto:anna@helloarttherapy.com?subject=${encodeURIComponent(String(data.get('subject')))}&body=${encodeURIComponent(body)}`;
+    const status=document.querySelector('#form-status');
+    if(status) status.textContent='Your email app should open with your message ready to review. If it does not, email Anna directly using the link on this page.';
+  });
+</script>

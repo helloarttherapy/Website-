@@ -1,0 +1,28 @@
+{
+  "name": "hello-art-therapy",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro build",
+    "preview": "astro preview --host 127.0.0.1",
+    "check": "astro check",
+    "test": "node --test scripts/*.test.mjs",
+    "deploy": "npm run build && wrangler deploy --profile hello-art-therapy"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.5.1",
+    "@fontsource/dm-sans": "^5.2.6",
+    "@fontsource/lora": "^5.2.6",
+    "astro": "^7.3.8"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "cheerio": "^1.1.2",
+    "sanitize-html": "^2.17.0",
+    "sharp": "^0.35.5",
+    "typescript": "^5.9.2",
+    "wrangler": "^4.0.0"
+  }
+}
