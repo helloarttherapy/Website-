@@ -41,7 +41,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .section { padding: 80px max(6%, calc((100vw - 1120px)/2)); }
 .content-width { width: min(1120px, 88%); margin-inline: auto; }
 .button, .offer-section a[href='/contact'], .sessions a[href='/contact'] { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 14px 30px; background: var(--button); border: 1px solid var(--button); color: #fff; text-decoration: none; font-size: 15px; cursor: pointer; border-radius: 0; }
-.button:hover, .offer-section a[href='/contact']:hover, .sessions a[href='/contact']:hover { background: #394257; }
+.button:hover, .offer-section a[href='/contact']:hover, .sessions a[href='/contact']:hover, .session-pricing a[href='/contact']:hover, .about-details a[href='/contact']:hover { background: #394257; }
 .hero { position: relative; overflow: hidden; background: #91b1b5; height: min(620px, calc(100svh - 88px)); min-height: 400px; }
 .hero picture { display: block; width: 100%; height: 100%; }
 .hero img { width: 100%; height: 100%; object-fit: cover; }
@@ -118,6 +118,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .session-pricing li { padding: 0; }
 .session-pricing em { font-style: normal; }
 .session-pricing a[href='/contact'], .about-details a[href='/contact'] { display: inline-flex; align-items: center; min-height: 48px; padding: 12px 24px; background: var(--button); color: #fff; text-decoration: none; }
+.button, .offer-section a[href='/contact'], .sessions a[href='/contact'], .session-pricing a[href='/contact'], .about-details a[href='/contact'], .desktop-nav .nav-contact { border-radius: 999px; transition: background-color .2s ease, border-color .2s ease; }
 .about-intro { display: grid; grid-template-columns: 1.4fr .7fr; gap: 80px; align-items: start; margin-bottom: 60px; }
 .about-portrait { position: sticky; top: 128px; }
 .about-portrait figure { margin: 0; }
