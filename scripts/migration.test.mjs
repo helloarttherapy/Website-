@@ -63,8 +63,14 @@ test('navigation and page copy preserve the original labels and published conten
   const blog=load(read('dist/blog/index.html'));
   for(const post of originals) {
     const card=blog('.post-card').filter((_,el)=>blog(el).find('h2 a').attr('href')===post.fullUrl);
-    assert.equal(text(card.find('.post-excerpt').html()||''),text(post.excerpt||''),`Blog summary changed: ${post.title}`);
+    const intro = readableText(card.find('.post-excerpt').html() || '');
+    assert.ok(intro,`Missing opening paragraph: ${post.title}`);
+    assert.ok(readableText(post.body).includes(intro),`Card intro must use original article words: ${post.title}`);
   }
+  const firstIntro = blog('.post-card').first().find('.post-excerpt').text().trim();
+  assert.equal(firstIntro,'A vulnerable little baby was born, as the ancient story goes, in the most lowly of circumstances.');
+  const leadingBreakIntro = blog('.post-card').filter((_,el)=>blog(el).find('h2 a').text()==='The Kardashians and God').find('.post-excerpt').text().trim();
+  assert.ok(leadingBreakIntro.startsWith('God and online celebrity culture. Two concepts'), 'Leading line breaks must not create an empty card intro');
   assert.equal($('footer .footer-top nav').text().replace(/\s+/g,''),'AboutHowitworksGetintouchBlogInstagramLinkedinSpotify');
   assert.ok(!read('src/styles/global.css').includes('✳'));
   assert.ok(!$('body').text().includes('Sometimes, there’s'));

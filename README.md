@@ -16,7 +16,7 @@ Use Node.js 22. Run `npm ci`, then `npm run dev`. Run `npm run check`, `npm run 
 
 `src/data/site.json` contains the migrated page copy, all 18 articles, social artwork and image paths. Pages live in `src/pages`, shared styling in `src/styles/global.css`. The article routes preserve the original dates and slugs. Topic pages preserve the original `/blog/tag/...` addresses. `public/_redirects` maps legacy index-section paths and `/home-1` to their replacements.
 
-Public source snapshots, the original sitemap and an image attribution/provenance map are kept in `migration/`. The original animated hero includes its original star and a static alternative for reduced-motion visitors. The navigation labels, page text, published blog excerpts and cyan footer preserve the Squarespace site. Images and the body font are self-hosted.
+Public source snapshots, the original sitemap and an image attribution/provenance map are kept in `migration/`. The original animated hero includes its original star and a static alternative for reduced-motion visitors. The navigation labels, page text and cyan footer preserve the Squarespace site. Blog cards use the original opening paragraph from each article in place of the old excerpts, as requested. Images and fonts are self-hosted.
 
 With Anna's approval, headings, the wordmark and display text use Belleza, restored after the serif-font trial. Tenor Sans remains the body font. Both fonts are bundled locally through Fontsource, so the site loads the actual fonts without an Adobe account, external font request or Squarespace font integration. The original hero's handwritten lettering remains part of its unchanged artwork.
 
@@ -25,6 +25,8 @@ The content layout groups session options and pricing, pairs Anna's portrait wit
 The shared navigation groups the original five links beside the wordmark. Breadcrumbs use existing page labels and match the BreadcrumbList data. The homepage moves from the original artwork through an introduction, two benefits panels, sessions alongside Anna's portrait, testimonials and social artwork. Existing headings link to the detailed therapy and session pages.
 
 The therapy essay has section navigation, an artwork/greeting opening and a single reading column. Sessions have separate rows for readable descriptions, followed by pricing. Anna's biography pairs her journey with her portrait, then puts Experience and Education in separate rows. The archive features the latest original article above the remaining cards; article pages pair titles with artwork, use a readable body column and link their original topics. Contact places the existing email invitation beside the form. Copy, typography sizes, weights, line heights, colours and artwork are preserved. Navigation repeats existing labels without rewriting page content.
+
+The compact pill CTAs use a muted charcoal teal. Homepage list gaps are halved, and the offer section uses the warm grey sampled from the top right of Anna's portrait. The sessions introduction removes the forced heading break and the grey callout box. The footer keeps the original cyan, logo and labels with horizontal link groups and a separate copyright row. These refinements do not change the fonts or article text.
 
 ## Search metadata
 

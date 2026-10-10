@@ -18,6 +18,7 @@ function fragment(html) {
 
 export function sessionLayout(html) {
   const $ = fragment(html);
+  $('h2').first().find('br').replaceWith(' ');
   const labels = ['Individual sessions', 'Parent/child sessions', 'Group work', 'Session pricing'];
   $('p').each((_, element) => {
     const p = $(element), first = p.find('strong').first();
@@ -38,6 +39,20 @@ export function sessionLayout(html) {
     else intro.push($.html(element));
   });
   return { intro: intro.join(''), groups };
+}
+
+// Squarespace often exports paragraph boundaries as line breaks inside one p.
+// Return the first non-empty opening block, keeping its original words.
+export function articleIntro(html) {
+  const $ = load(html, null, false);
+  $('figure,figcaption,script,style,iframe').remove();
+  for (const paragraph of $('p').toArray()) {
+    for (const block of ($(paragraph).html() || '').split(/<br\s*\/?\s*>/i)) {
+      const text = load(block, null, false).text().replace(/\s+/g, ' ').trim();
+      if (text) return text;
+    }
+  }
+  return '';
 }
 
 export function supportLayout(html) {

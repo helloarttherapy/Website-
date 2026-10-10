@@ -3,7 +3,9 @@
   --muted: #5c6372;
   --line: #d9dee3;
   --footer: #97e7f7;
-  --button: #1a1f2d;
+  --button: #475b60;
+  --button-hover: #35494e;
+  --portrait-grey: #e5e1d5;
   --sans: 'Tenor Sans', Arial, sans-serif;
   --heading-font: 'Belleza', var(--sans);
 }
@@ -30,7 +32,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .desktop-nav a { text-decoration: none; white-space: nowrap; padding: 12px 0; }
 .desktop-nav a:hover, .desktop-nav a[aria-current] { text-decoration: underline; }
 .nav-primary { justify-content: flex-end; }
-.desktop-nav .nav-contact { padding: 12px 22px; border: 1px solid var(--button); }
+.desktop-nav .nav-contact { padding: 8px 18px; min-height: 44px; border: 1px solid var(--button); }
 .desktop-nav .nav-contact:hover { background: #f1f4f4; }
 .mobile-menu { display: none; }
 .breadcrumbs { padding-top: 28px; }
@@ -40,8 +42,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .breadcrumbs [aria-current] { color: var(--muted); }
 .section { padding: 80px max(6%, calc((100vw - 1120px)/2)); }
 .content-width { width: min(1120px, 88%); margin-inline: auto; }
-.button, .offer-section a[href='/contact'], .sessions a[href='/contact'] { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 14px 30px; background: var(--button); border: 1px solid var(--button); color: #fff; text-decoration: none; font-size: 15px; cursor: pointer; border-radius: 0; }
-.button:hover, .offer-section a[href='/contact']:hover, .sessions a[href='/contact']:hover, .session-pricing a[href='/contact']:hover, .about-details a[href='/contact']:hover { background: #394257; }
+.button, .offer-section a[href='/contact'], .sessions a[href='/contact'] { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 9px 22px; background: var(--button); border: 1px solid var(--button); color: #fff; text-decoration: none; font-size: 15px; cursor: pointer; border-radius: 999px; }
+.button:hover, .offer-section a[href='/contact']:hover, .sessions a[href='/contact']:hover, .session-pricing a[href='/contact']:hover, .about-details a[href='/contact']:hover { background: var(--button-hover); }
 .hero { position: relative; overflow: hidden; background: #91b1b5; height: min(620px, calc(100svh - 88px)); min-height: 400px; }
 .hero picture { display: block; width: 100%; height: 100%; }
 .hero img { width: 100%; height: 100%; object-fit: cover; }
@@ -54,8 +56,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .support-copy { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
 .support-panel { padding: 36px; background: #ffffffd9; border: 1px solid var(--line); }
 .support-copy .support-panel h2, .support-copy .support-panel h3 { font-size: 34px; margin: 0 0 28px; min-height: 82px; }
-.support-list p { position: relative; margin: 0; padding: 7px 0 7px 22px; font-size: 16px; line-height: 1.65; }
+.support-copy .support-list p { position: relative; margin: 0 0 5px; padding: 7px 0 7px 22px; font-size: 16px; line-height: 1.65; }
+.support-copy .support-list p:last-child { margin-bottom: 0; }
 .support-list p::before { content: ''; position: absolute; left: 0; top: 18px; width: 6px; height: 6px; border-radius: 50%; background: #68808a; }
+.offer-section { background: var(--portrait-grey); }
 .offer-layout { display: grid; grid-template-columns: 1.2fr .8fr; gap: 80px; align-items: center; }
 .offer-section .prose { display: flex; flex-direction: column; gap: 28px; align-items: start; margin: 0; }
 .offer-section h2 { margin: 0; text-align: left; }
@@ -78,14 +82,18 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .social-grid a:hover img { transform: scale(1.03); }
 .social-section > .button { display: flex; width: fit-content; margin: 42px auto 0; }
 .invitation { text-align: center; padding: 0 24px 80px; }
-.site-footer { background: var(--footer); color: var(--button); padding: 52px 6% 28px; }
-.footer-top { display: grid; grid-template-columns: 1.7fr 1fr 1fr; gap: 70px; }
-.footer-logo { display: block; max-width: 360px; }
+.site-footer { background: var(--footer); color: #1a1f2d; padding: 48px 0 24px; }
+.footer-top { display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; align-items: start; }
+.footer-logo { display: block; max-width: 300px; }
 .footer-logo img { width: 100%; }
-.footer-top nav { display: flex; flex-direction: column; align-items: flex-start; }
-.footer-top nav a { display: flex; align-items: center; padding: 4px 0; min-height: 44px; text-decoration-color: #1a1f2d55; }
+.footer-links { display: grid; gap: 16px; }
+.footer-top nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; }
+.footer-top nav + nav { border-top: 1px solid #1a1f2d33; padding-top: 16px; }
+.footer-top nav a { display: inline-flex; align-items: center; padding: 4px 0; min-height: 44px; text-decoration-color: #1a1f2d55; }
+.footer-top nav .footer-cta { padding: 8px 18px; border: 1px solid var(--button); border-radius: 999px; text-decoration: none; transition: background-color .2s ease; }
+.footer-top nav .footer-cta:hover { background: #ffffff55; }
 .footer-top nav a:hover { text-decoration-color: currentColor; }
-.footer-copyright { text-align: center; font-size: 16px; margin: 48px 0 0; }
+.footer-copyright { text-align: left; font-size: 16px; margin: 32px 0 0; padding-top: 18px; border-top: 1px solid #1a1f2d33; }
 .page-heading { padding: 32px max(6%, calc((100vw - 1120px)/2)) 48px; text-align: left; background: #fff; }
 .page-heading h1 { max-width: 1000px; margin: 0; }
 .page-heading p { margin: 20px 0 0; }
@@ -108,7 +116,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .sessions a[href='/contact'] { margin-top: 10px; }
 .process-intro { display: block; max-width: 860px; padding-bottom: 48px; }
 .process-intro h2 { margin: 0 0 28px; font-size: 36px; }
-.process-intro p:last-child { font-family: var(--heading-font); font-size: 28px; line-height: 1.45; padding: 20px 24px; background: #f1f4f4; border-left: 3px solid var(--footer); margin-bottom: 0; }
+.process-intro p:last-child { font-family: var(--heading-font); font-size: 28px; line-height: 1.45; padding: 0; background: none; margin-bottom: 0; }
 .session-options { display: grid; grid-template-columns: 1fr; gap: 28px; margin-bottom: 80px; }
 .session-row { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; border: 1px solid var(--line); padding: 32px; }
 .session-row h2 { margin: 0; font-size: 30px; }
@@ -117,7 +125,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .session-pricing ul { list-style: none; padding: 0; }
 .session-pricing li { padding: 0; }
 .session-pricing em { font-style: normal; }
-.session-pricing a[href='/contact'], .about-details a[href='/contact'] { display: inline-flex; align-items: center; min-height: 48px; padding: 12px 24px; background: var(--button); color: #fff; text-decoration: none; }
+.session-pricing a[href='/contact'], .about-details a[href='/contact'] { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 20px; background: var(--button); color: #fff; text-decoration: none; }
 .button, .offer-section a[href='/contact'], .sessions a[href='/contact'], .session-pricing a[href='/contact'], .about-details a[href='/contact'], .desktop-nav .nav-contact { border-radius: 999px; transition: background-color .2s ease, border-color .2s ease; }
 .about-intro { display: grid; grid-template-columns: 1.4fr .7fr; gap: 80px; align-items: start; margin-bottom: 60px; }
 .about-portrait { position: sticky; top: 128px; }
@@ -256,10 +264,11 @@ form .button { align-self: flex-start; }
   .about-portrait { max-width: 340px; position: static; }
   .social-grid { grid-template-columns: repeat(2,1fr); gap: 10px; }
   .social-section h2 { text-align: left; }
-  .site-footer { padding: 44px 7% 26px; }
-  .footer-top { grid-template-columns: 1fr 1fr; gap: 30px; }
-  .footer-logo { grid-column: 1/-1; max-width: 300px; }
-  .footer-copyright { margin-top: 44px; font-size: 14px; }
+  .site-footer { padding: 36px 0 24px; }
+  .footer-top { grid-template-columns: 1fr; gap: 24px; }
+  .footer-logo { max-width: 260px; }
+  .footer-top nav { gap: 8px 20px; }
+  .footer-copyright { margin-top: 24px; font-size: 14px; }
   .page-heading { padding: 36px 6% 28px; }
   .page-heading h1 { font-size: 40px; }
   .article-body { margin-bottom: 48px; font-size: 16px; }

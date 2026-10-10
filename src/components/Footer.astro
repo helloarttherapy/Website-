@@ -3,10 +3,14 @@ import { imageSize } from '../lib/image-size.mjs';
 const logoSize = await imageSize('/images/original-logo-white.png');
 ---
 <footer class="site-footer">
+  <div class="content-width">
   <div class="footer-top">
     <a class="footer-logo" href="/"><img src="/images/original-logo-white.png" alt="Anna Worthington Art Therapy" {...logoSize} loading="lazy" /></a>
-    <nav aria-label="Footer navigation"><a href="/about-1">About</a><a href="/how-it-works">How it works</a><a href="/contact">Get in touch</a></nav>
+    <div class="footer-links">
+    <nav aria-label="Footer navigation"><a href="/about-1">About</a><a href="/how-it-works">How it works</a><a class="footer-cta" href="/contact">Get in touch</a></nav>
     <nav aria-label="Blog and social links"><a href="/blog">Blog</a><a href="https://www.instagram.com/helloarttherapy/">Instagram</a><a href="https://www.linkedin.com/in/anna-worthington-354648188">Linkedin</a><a href="https://podcasters.spotify.com/pod/show/hello-art-therapy7/episodes/Feeling--Not-Thinking-Is-The-Doorway-e2kuhtg/a-abc3no4">Spotify</a></nav>
+    </div>
   </div>
   <p class="footer-copyright">© Hello Art Therapy {new Date().getFullYear()}</p>
+  </div>
 </footer>
