@@ -5,7 +5,7 @@
   --footer: #97e7f7;
   --button: #1a1f2d;
   --sans: 'Tenor Sans', Arial, sans-serif;
-  --heading-font: 'Belleza', var(--sans);
+  --heading-font: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 112px; }
@@ -171,7 +171,7 @@ form .button { align-self: flex-start; }
   .site-header { grid-template-columns: 1fr auto; min-height: 88px; padding: 16px 6%; }
   .wordmark { font-size: 25px; }
   .desktop-nav { display: none; }
-  .mobile-menu { display: block; }
+  .mobile-menu { display: block; width: 48px; }
   .mobile-menu summary { display: grid; place-items: center; width: 48px; min-height: 48px; cursor: pointer; list-style: none; }
   .mobile-menu summary::-webkit-details-marker { display: none; }
   .menu-icon { width: 24px; height: 18px; border-top: 2px solid currentColor; border-bottom: 2px solid currentColor; position: relative; }
@@ -238,6 +238,7 @@ form .button { align-self: flex-start; }
   .contact-section > div:first-child { position: static; }
 }
 @media (max-width: 460px) {
+  .site-header { gap: 4px; }
   .post-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .prose { font-size: 16px; }

@@ -18,11 +18,11 @@ Use Node.js 22. Run `npm ci`, then `npm run dev`. Run `npm run check`, `npm run 
 
 Public source snapshots, the original sitemap and an image attribution/provenance map are kept in `migration/`. The original animated hero includes its original star and a static alternative for reduced-motion visitors. The navigation labels, page text, published blog excerpts and cyan footer preserve the Squarespace site. Images and the body font are self-hosted.
 
-With Anna's approval, the original Minerva Modern typography is approximated with Google Fonts: Belleza for headings and the wordmark, and Tenor Sans for body text. Both are bundled locally through Fontsource, so the site loads the actual fonts without an Adobe account, external font request or Squarespace font integration. The original hero's handwritten lettering remains part of its unchanged artwork.
+With Anna's approval, headings, the wordmark and display text use Libre Baskerville to match the elegant serif lettering in the updated YouTube cards. The cards contain generated lettering rather than a named font file, so this is a close visual match. Tenor Sans remains the body font. Both fonts are bundled locally through Fontsource, so the site loads the actual fonts without an Adobe account, external font request or Squarespace font integration. The original hero's handwritten lettering remains part of its unchanged artwork.
 
 The content layout groups session options and pricing, pairs Anna's portrait with her introduction and separates Experience and Education. Layout transformations in `src/lib/content-layout.mjs` preserve the source words and their order. Migration checks compare the rendered pages against the original copy.
 
-The art therapy essay pairs its original artwork with its greeting, then separates the existing bold labels into semantic sections with the same body typography. Homepage headings link to the detailed therapy and session pages without adding copy. Blog cards have one keyboard-accessible link covering the card, and the contact introduction stays beside the form on desktop. Fonts, sizes, weights, line heights and colours remain unchanged.
+The art therapy essay pairs its original artwork with its greeting, then separates the existing bold labels into semantic sections with the same body typography. Homepage headings link to the detailed therapy and session pages without adding copy. Blog cards have one keyboard-accessible link covering the card, and the contact introduction stays beside the form on desktop. The later heading-font update preserves the layout, sizes, weights, line heights and colours.
 
 ## Search metadata
 
