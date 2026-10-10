@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="507.27559055118115" height="410" preserveAspectRatio="xMinYMin meet" viewBox="0 0 507 410" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="507.27559055118115" height="410"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-410)" style="clip-path: url(#clip)">
+		<g transform="">
+			<text x="0" y="394" style="font-family: Helvetica-Bold; font-size: 10px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,788) scale(1,-1)">01  PUBLISH THE WEBSITE</text>
+			<rect x="0" y="310" width="153.09186351706037" height="66" rx="10" ry="10" style="stroke: rgb(85%,87%,89%); stroke-linecap: butt; stroke-width: 0.7; fill: rgb(94%,96%,96%); fill-rule: evenodd;"/>
+			<text x="11" y="356" style="font-family: Helvetica-Bold; font-size: 10px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,712) scale(1,-1)">GitHub</text>
+			<text x="11" y="339" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,678) scale(1,-1)">Website source</text>
+			<text x="11" y="327" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,654) scale(1,-1)">helloarttherapy / Website-</text>
+			<rect x="177.09186351706037" y="310" width="153.09186351706037" height="66" rx="10" ry="10" style="stroke: rgb(85%,87%,89%); stroke-linecap: butt; stroke-width: 0.7; fill: rgb(94%,96%,96%); fill-rule: evenodd;"/>
+			<text x="188.09186351706037" y="356" style="font-family: Helvetica-Bold; font-size: 10px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,712) scale(1,-1)">Astro build</text>
+			<text x="188.09186351706037" y="339" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,678) scale(1,-1)">Edit locally and check</text>
+			<text x="188.09186351706037" y="327" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,654) scale(1,-1)">Generate static pages</text>
+			<rect x="354.18372703412075" y="310" width="153.0918635170604" height="66" rx="10" ry="10" style="stroke: rgb(85%,87%,89%); stroke-linecap: butt; stroke-width: 0.7; fill: rgb(94%,96%,96%); fill-rule: evenodd;"/>
+			<text x="365.18372703412075" y="356" style="font-family: Helvetica-Bold; font-size: 10px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,712) scale(1,-1)">Cloudflare Worker</text>
+			<text x="365.18372703412075" y="339" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,678) scale(1,-1)">Wrangler deployment</text>
+			<text x="365.18372703412075" y="327" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,654) scale(1,-1)">hello-art-therapy</text>
+			<path d="M 153.091864,343 L 173.091864,343 Z" style="stroke: rgb(27%,35%,37%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="177.0919 343, 171.0919 346.5, 171.0919 339.5" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,35%,37%); fill-rule: evenodd;"/>
+			<path d="M 330.183727,343 L 350.183727,343 Z" style="stroke: rgb(27%,35%,37%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="354.1837 343, 348.1837 346.5, 348.1837 339.5" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,35%,37%); fill-rule: evenodd;"/>
+			<text x="0" y="277" style="font-family: Helvetica; font-size: 8.6px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,554) scale(1,-1)">Publishing is manual. GitHub Actions checks changes; it does not deploy.</text>
+			<text x="0" y="242" style="font-family: Helvetica-Bold; font-size: 10px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,484) scale(1,-1)">02  VISIT THE WEBSITE</text>
+			<rect x="0" y="158" width="153.09186351706037" height="66" rx="10" ry="10" style="stroke: rgb(85%,87%,89%); stroke-linecap: butt; stroke-width: 0.7; fill: rgb(94%,96%,96%); fill-rule: evenodd;"/>
+			<text x="11" y="204" style="font-family: Helvetica-Bold; font-size: 10px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,408) scale(1,-1)">Visitor</text>
+			<text x="11" y="187" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,374) scale(1,-1)">Opens Anna's website</text>
+			<text x="11" y="175" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,350) scale(1,-1)">on phone or desktop</text>
+			<rect x="177.09186351706037" y="158" width="153.09186351706037" height="66" rx="10" ry="10" style="stroke: rgb(85%,87%,89%); stroke-linecap: butt; stroke-width: 0.7; fill: rgb(94%,96%,96%); fill-rule: evenodd;"/>
+			<text x="188.09186351706037" y="204" style="font-family: Helvetica-Bold; font-size: 10px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,408) scale(1,-1)">Cloudflare DNS + TLS</text>
+			<text x="188.09186351706037" y="187" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,374) scale(1,-1)">Finds the website</text>
+			<text x="188.09186351706037" y="175" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,350) scale(1,-1)">and provides HTTPS</text>
+			<rect x="354.18372703412075" y="158" width="153.0918635170604" height="66" rx="10" ry="10" style="stroke: rgb(85%,87%,89%); stroke-linecap: butt; stroke-width: 0.7; fill: rgb(94%,96%,96%); fill-rule: evenodd;"/>
+			<text x="365.18372703412075" y="204" style="font-family: Helvetica-Bold; font-size: 10px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,408) scale(1,-1)">Worker Static Assets</text>
+			<text x="365.18372703412075" y="187" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,374) scale(1,-1)">Serves pages, images</text>
+			<text x="365.18372703412075" y="175" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,350) scale(1,-1)">and self-hosted fonts</text>
+			<path d="M 153.091864,191 L 173.091864,191 Z" style="stroke: rgb(27%,35%,37%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="177.0919 191, 171.0919 194.5, 171.0919 187.5" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,35%,37%); fill-rule: evenodd;"/>
+			<path d="M 330.183727,191 L 350.183727,191 Z" style="stroke: rgb(27%,35%,37%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="354.1837 191, 348.1837 194.5, 348.1837 187.5" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,35%,37%); fill-rule: evenodd;"/>
+			<text x="0" y="128" style="font-family: Helvetica; font-size: 8.6px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,256) scale(1,-1)">GoDaddy holds the domain registration; its nameservers point to Cloudflare.</text>
+			<text x="0" y="94" style="font-family: Helvetica-Bold; font-size: 10px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,188) scale(1,-1)">03  SEND A CONTACT MESSAGE</text>
+			<rect x="0.0" y="8" width="114.06889763779529" height="66" rx="10" ry="10" style="stroke: rgb(85%,87%,89%); stroke-linecap: butt; stroke-width: 0.7; fill: rgb(94%,96%,96%); fill-rule: evenodd;"/>
+			<text x="11.0" y="54" style="font-family: Helvetica-Bold; font-size: 10px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,108) scale(1,-1)">Contact form</text>
+			<text x="11.0" y="37" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,74) scale(1,-1)">Visitor submits</text>
+			<text x="11.0" y="25" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,50) scale(1,-1)">an enquiry</text>
+			<rect x="131.0688976377953" y="8" width="114.06889763779529" height="66" rx="10" ry="10" style="stroke: rgb(85%,87%,89%); stroke-linecap: butt; stroke-width: 0.7; fill: rgb(94%,96%,96%); fill-rule: evenodd;"/>
+			<text x="142.0688976377953" y="54" style="font-family: Helvetica-Bold; font-size: 10px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,108) scale(1,-1)">Worker endpoint</text>
+			<text x="142.0688976377953" y="37" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,74) scale(1,-1)">Validates fields</text>
+			<text x="142.0688976377953" y="25" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,50) scale(1,-1)">and rate limits</text>
+			<rect x="262.1377952755906" y="8" width="114.06889763779526" height="66" rx="10" ry="10" style="stroke: rgb(85%,87%,89%); stroke-linecap: butt; stroke-width: 0.7; fill: rgb(94%,96%,96%); fill-rule: evenodd;"/>
+			<text x="273.1377952755906" y="54" style="font-family: Helvetica-Bold; font-size: 10px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,108) scale(1,-1)">Cloudflare email</text>
+			<text x="273.1377952755906" y="37" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,74) scale(1,-1)">Fixed website</text>
+			<text x="273.1377952755906" y="25" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,50) scale(1,-1)">sender address</text>
+			<rect x="393.20669291338584" y="8" width="114.06889763779532" height="66" rx="10" ry="10" style="stroke: rgb(85%,87%,89%); stroke-linecap: butt; stroke-width: 0.7; fill: rgb(94%,96%,96%); fill-rule: evenodd;"/>
+			<text x="404.20669291338584" y="54" style="font-family: Helvetica-Bold; font-size: 10px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,108) scale(1,-1)">Anna's inbox</text>
+			<text x="404.20669291338584" y="37" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,74) scale(1,-1)">Google Workspace</text>
+			<text x="404.20669291338584" y="25" style="font-family: Helvetica; font-size: 8.4px;fill: rgb(16%,18%,27%); stroke:none;" transform="translate(0,50) scale(1,-1)">anna@hello...</text>
+			<path d="M 114.068898,41 L 127.068898,41 Z" style="stroke: rgb(27%,35%,37%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="131.0689 41, 125.0689 44.5, 125.0689 37.5" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,35%,37%); fill-rule: evenodd;"/>
+			<path d="M 245.137795,41 L 258.137795,41 Z" style="stroke: rgb(27%,35%,37%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="262.1378 41, 256.1378 44.5, 256.1378 37.5" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,35%,37%); fill-rule: evenodd;"/>
+			<path d="M 376.206693,41 L 389.206693,41 Z" style="stroke: rgb(27%,35%,37%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="393.2067 41, 387.2067 44.5, 387.2067 37.5" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,35%,37%); fill-rule: evenodd;"/>
+		</g>
+	</g>
+</svg>

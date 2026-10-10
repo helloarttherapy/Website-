@@ -1,4 +1,4 @@
-const THANK_YOU = 'Thank you, Anna will contact you shortly.';
+const THANK_YOU = 'Thank you for message, I will be in touch shortly.';
 const FAILURE = 'Unable to submit form. Please try again later.';
 const INVALID = 'Invalid form data.';
 const RECIPIENT = 'anna@helloarttherapy.com';

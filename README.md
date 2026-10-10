@@ -48,7 +48,7 @@ The direct contact endpoint requires Workers; a static-only Pages deployment wil
 
 ## Contact
 
-The rebuilt form posts directly to `/api/contact`, preserving the original fields, Submit label, thank-you and error messages. The Worker sends to `anna@helloarttherapy.com` from `website@annaworthingtonarttherapy.com`, with the visitor's address as Reply-To. It validates inputs, limits body size, checks the request origin, uses a honeypot and rate limits repeat submissions. It does not log or store enquiry contents. A direct email link remains available.
+The rebuilt form posts directly to `/api/contact`, preserving the original fields, Submit label and error message. At Anna's request, the invitation now ends with a full stop, and the confirmation reads “Thank you for message, I will be in touch shortly.” The Worker sends to `anna@helloarttherapy.com` from `website@annaworthingtonarttherapy.com`, with the visitor's address as Reply-To. It validates inputs, limits body size, checks the request origin, uses a honeypot and rate limits repeat submissions. It does not log or store enquiry contents. A direct email link remains available.
 
 **Email delivery is active and tested.** On 10 October 2026, Cloudflare accepted a labelled launch test from the isolated preview, the form displayed its original thank-you message, and the email arrived in Anna's Google Workspace Inbox. The same tested Worker and assets are deployed to the public custom domain and production Workers address. A second labelled test submitted through the public contact page received provider acceptance and the original thank-you message. Unit tests mock the provider and send no actual mail.
 
@@ -71,3 +71,7 @@ After explicit launch approval, the four root Squarespace A records and the `www
 - Existing blog comments, Squarespace form submissions, mailing lists, analytics and account settings are not in the public source export and have not been migrated.
 
 Re-importing from live Squarespace is optional and separate from normal builds: download the six JSON snapshots to `/private/tmp/hello-art-{home,therapy,how,about,contact,blog}.json` plus the sitemap, then run `node scripts/migrate.mjs`. Review the resulting diff before committing.
+
+## Saved setup guide
+
+`output/pdf/Hello-Art-Therapy-Site-Setup.pdf` documents the platform roles, publishing and contact flows, domain configuration, website routes and maintenance process. A reusable vector diagram is saved alongside it as `Hello-Art-Therapy-System-Flow.svg`. The guide source is `docs/generate-site-guide.py` (Python with ReportLab). The website build does not use or publish these documentation files.

@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 <Base title="Get in touch">
   <header class="page-heading"><h1>Get in touch</h1></header>
   <section class="contact-section section" id="contact-form">
-    <div class="contact-introduction"><h2>Feel free to email or fill in the form to say hello!</h2><p>Email: <a class="contact-email" href="mailto:anna@helloarttherapy.com">anna@helloarttherapy.com</a></p></div>
+    <div class="contact-introduction"><h2>Feel free to email or fill in the form to say hello.</h2><p>Email: <a class="contact-email" href="mailto:anna@helloarttherapy.com">anna@helloarttherapy.com</a></p></div>
     <div>
       <p>Or fill in the form below:</p>
       <form id="enquiry-form" action="/api/contact" method="post">
@@ -35,7 +35,7 @@ import Base from '../layouts/Base.astro';
       });
       const result = await response.json();
       if (!response.ok || result.ok !== true) throw new Error('Submission failed');
-      status.textContent = 'Thank you, Anna will contact you shortly.';
+      status.textContent = 'Thank you for message, I will be in touch shortly.';
       form.reset();
     } catch {
       status.textContent = 'Unable to submit form. Please try again later.';

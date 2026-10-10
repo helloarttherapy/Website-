@@ -87,10 +87,10 @@ test('restructured sessions, biography and therapy pages retain the original wor
   assert.equal(readableText(therapy('.therapy-hero').html() + therapy('article').html()),readableText(site.therapy.replace(/^\s*<h2>What is Art Therapy\?<\/h2>/,'')));
 });
 
-test('contact form retains the original copy and submits to the server endpoint',()=>{
+test('contact form uses the approved invitation copy and submits to the server endpoint',()=>{
   const $=load(read('dist/contact/index.html'));
   assert.equal($('main h1').text(),'Get in touch');
-  assert.equal($('main h2').text(),'Feel free to email or fill in the form to say hello!');
+  assert.equal($('main h2').text(),'Feel free to email or fill in the form to say hello.');
   assert.equal($('form').attr('action'),'/api/contact');
   assert.equal($('form').attr('method'),'post');
   assert.equal($('form button').text(),'Submit');

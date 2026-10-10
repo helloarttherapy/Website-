@@ -9,7 +9,7 @@ function environment(send=async()=>({messageId:'test-id'})){return {EMAIL:{send}
 test('successful contact delivery uses the fixed recipient and visitor reply address',async()=>{
   let sent;
   const response=await handleContact(request(),environment(async email=>{sent=email;return {messageId:'test-id'};}));
-  assert.equal(response.status,200);assert.equal((await response.json()).message,'Thank you, Anna will contact you shortly.');
+  assert.equal(response.status,200);assert.equal((await response.json()).message,'Thank you for message, I will be in touch shortly.');
   assert.equal(sent.to,'anna@helloarttherapy.com');assert.equal(sent.from.email,'website@annaworthingtonarttherapy.com');assert.equal(sent.replyTo,valid.email);
   assert.ok(sent.text.includes(valid.message));assert.equal(response.headers.get('Cache-Control'),'no-store');
 });
@@ -37,5 +37,5 @@ test('chunked requests are cancelled as soon as the body exceeds the byte limit'
 });
 test('normal pages pass through to static assets and non-JavaScript forms receive HTML',async()=>{
   const response=await worker.fetch(new Request('https://example.com/blog'),{ASSETS:{fetch:async()=>new Response('asset')}});assert.equal(await response.text(),'asset');
-  const req=request();req.headers.delete('Accept');const html=await handleContact(req,environment());assert.equal(html.status,200);assert.ok((await html.text()).includes('Thank you, Anna will contact you shortly.'));
+  const req=request();req.headers.delete('Accept');const html=await handleContact(req,environment());assert.equal(html.status,200);assert.ok((await html.text()).includes('Thank you for message, I will be in touch shortly.'));
 });
