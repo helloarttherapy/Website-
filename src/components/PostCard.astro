@@ -1,9 +1,11 @@
 ---
 interface Props { post: {title:string;url:string;date:string;displayDate:string;excerpt:string;image?:string}; }
+import { imageSize } from '../lib/image-size.mjs';
 const {post}=Astro.props;
+const dimensions = await imageSize(post.image);
 ---
 <article class="post-card">
-  {post.image && <a href={post.url} class="post-image" tabindex="-1" aria-hidden="true"><img src={post.image} alt="" loading="lazy" decoding="async" /></a>}
+  {post.image && <div class="post-image"><img src={post.image} alt="" {...dimensions} loading="lazy" decoding="async" /></div>}
   <h2><a href={post.url}>{post.title}</a></h2>
   {post.excerpt && <div class="post-excerpt" set:html={post.excerpt} />}
   <p class="post-meta"><time datetime={post.date}>{post.displayDate}</time></p>

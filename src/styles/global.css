@@ -119,6 +119,23 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .therapy-body figure img { width: 100%; margin: 0 0 12px; }
 .therapy-body figcaption { text-align: center; font-size: 13px; color: var(--muted); }
 .therapy-body strong { font-weight: 600; }
+.section-link { text-decoration: none; }
+.section-link:hover { text-decoration: underline; }
+.therapy-body { width: min(1120px, 88%); margin-bottom: 56px; }
+.therapy-lead { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; margin-bottom: 56px; }
+.therapy-lead figure { margin: 0; }
+.therapy-opening { max-width: 740px; margin: 0 auto 48px; }
+.therapy-chapter { display: grid; grid-template-columns: .8fr 1.2fr; gap: 60px; padding: 40px 0 16px; border-top: 1px solid var(--line); }
+/* These are the original bold paragraph labels, now semantic section headings.
+   Keep their existing body type rather than applying the heading font. */
+.therapy-chapter > .therapy-section-title { font: inherit; font-weight: 600; letter-spacing: inherit; text-wrap: wrap; margin: 0 0 24px; }
+.therapy-chapter > div > :last-child { margin-bottom: 24px; }
+.contact-section > div:first-child { position: sticky; top: 128px; align-self: start; }
+.post-card { display: flex; flex-direction: column; position: relative; }
+.post-card > .post-meta { margin-top: auto; padding-top: 8px; margin-bottom: 0; }
+.post-card h2 a::after { content: ''; position: absolute; inset: 0; }
+.post-card:focus-within { outline: 3px solid var(--ink); outline-offset: 8px; }
+.post-card:hover .post-image img { transform: scale(1.03); }
 .blog-section { padding-top: 16px; }
 .post-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 56px 32px; }
 .post-image { display: block; overflow: hidden; margin-bottom: 24px; background: #f1f4f4; }
@@ -169,6 +186,7 @@ form .button { align-self: flex-start; }
   .footer-top { gap: 36px; }
   .intro-copy, .offer-section .prose, .process-intro, .session-row, .about-intro, .contact-section { gap: 36px; }
   .support-copy, .testimonials, .about-details { gap: 36px; }
+  .therapy-lead, .therapy-chapter { gap: 36px; }
 }
 @media (max-width: 760px) {
   .site-header { min-height: 80px; padding: 12px 6%; }
@@ -213,6 +231,11 @@ form .button { align-self: flex-start; }
   .article-heading { padding: 45px 7% 30px; }
   .contact-section { grid-template-columns: 1fr; gap: 24px; padding-top: 0; }
   .contact-section h2 { font-size: 28px; margin-bottom: 0; }
+  .therapy-lead, .therapy-chapter { grid-template-columns: 1fr; gap: 24px; }
+  .therapy-lead, .therapy-opening { margin-bottom: 36px; }
+  .therapy-chapter { padding-top: 28px; }
+  .therapy-chapter > .therapy-section-title { margin-bottom: 0; }
+  .contact-section > div:first-child { position: static; }
 }
 @media (max-width: 460px) {
   .post-grid { grid-template-columns: 1fr; }

@@ -72,3 +72,47 @@ export function readableArticle(html) {
   $('img').first().attr('loading', 'eager').attr('fetchpriority', 'high');
   return $.html();
 }
+
+export function therapyLayout(html) {
+  const $ = fragment(html);
+  $('img').first().attr('loading', 'eager').attr('fetchpriority', 'high');
+  $('a').filter((_, element) => !$(element).text().trim() && !$(element).find('img').length).remove();
+  const lead = [], opening = [], sections = [];
+  let section;
+  let introduction = true;
+  $.root().children().each((_, element) => {
+    const node = $(element);
+    // Preserve the original image, greeting and reading order as one opening row.
+    if (introduction && (element.tagName === 'figure' || element.tagName === 'p')) {
+      lead.push($.html(element));
+      if (node.text().trim() === 'Let’s take a brief look at why I think that’s an important question.') introduction = false;
+      return;
+    }
+    const strong = node.children('strong');
+    if (element.tagName === 'p' && strong.text().trim() === 'Do you make art?') {
+      // Keep the preceding sentence in place, then start the existing final question.
+      const title = strong.text().trim();
+      strong.remove();
+      if (section) section.body += $.html(element);
+      section = { title, body: '' };
+      sections.push(section);
+      return;
+    }
+    if (element.tagName === 'p' && strong.length === 1 && node.text().trim() === strong.text().trim()) {
+      section = { title: strong.text().trim(), body: '' };
+      sections.push(section);
+    } else if (section) section.body += $.html(element);
+    else opening.push($.html(element));
+  });
+  const leadHtml = load(lead.join(''), null, false);
+  const figure = leadHtml('figure').toString();
+  leadHtml('figure').remove();
+  return { figure, introduction: leadHtml.html(), opening: opening.join(''), sections };
+}
+
+export function linkedHeading(html, href) {
+  const $ = load(html, null, false);
+  const heading = $('h2').first();
+  heading.html($('<a>').attr('href', href).attr('class', 'section-link').html(heading.html()));
+  return $.html();
+}

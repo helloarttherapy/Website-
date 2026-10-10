@@ -22,6 +22,12 @@ With Anna's approval, the original Minerva Modern typography is approximated wit
 
 The content layout groups session options and pricing, pairs Anna's portrait with her introduction and separates Experience and Education. Layout transformations in `src/lib/content-layout.mjs` preserve the source words and their order. Migration checks compare the rendered pages against the original copy.
 
+The art therapy essay pairs its original artwork with its greeting, then separates the existing bold labels into semantic sections with the same body typography. Homepage headings link to the detailed therapy and session pages without adding copy. Blog cards have one keyboard-accessible link covering the card, and the contact introduction stays beside the form on desktop. Fonts, sizes, weights, line heights and colours remain unchanged.
+
+## Search metadata
+
+`src/lib/seo.mjs` supplies page-specific descriptions using complete sentences from the original copy, plus WebSite, Person and page structured data. Articles include their original author, headline, publication date, image and tags as BlogPosting data. No ratings, addresses or clinical claims are added. Canonicals, social previews, robots and sitemap use the original custom domain, ready for migration; the 404 page is noindex and excluded from the sitemap. Local image dimensions reserve space while images load. Search Console submission and live rich-result checks belong to the domain cutover, after the new site is published there.
+
 ## Cloudflare
 
 This is an Astro static build deployed with **Cloudflare Workers Static Assets**. `wrangler.jsonc` serves `dist` and the custom 404 page. `worker/index.mjs` handles `/api/contact`; other requests go to the static asset binding. No Astro server adapter or database is required.

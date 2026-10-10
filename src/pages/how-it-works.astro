@@ -8,8 +8,8 @@ const sessions = sessionLayout(site.how);
   <header class="page-heading"><h1>How it works</h1></header>
   <section class="prose process-intro content-width" set:html={sessions.intro} />
   <section class="session-options content-width" id="sessions">
-    {sessions.groups.map(group => <section class:list={['session-row', { 'session-pricing': group.title === 'Session pricing' }]}>
-      <h2>{group.title}</h2><div class="prose" set:html={group.body} />
+    {sessions.groups.map(group => <section class:list={['session-row', { 'session-pricing': group.title === 'Session pricing' }]} aria-labelledby={group.title.toLowerCase().replace(/[^a-z]+/g, '-')}>
+      <h2 id={group.title.toLowerCase().replace(/[^a-z]+/g, '-')}>{group.title}</h2><div class="prose" set:html={group.body} />
     </section>)}
   </section>
 </Base>

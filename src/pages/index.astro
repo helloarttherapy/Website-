@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import site from '../data/site.json';
-import { supportLayout } from '../lib/content-layout.mjs';
+import { supportLayout, linkedHeading } from '../lib/content-layout.mjs';
 ---
 <Base>
   <section class="hero" id="intro" aria-labelledby="hero-title">
@@ -9,9 +9,9 @@ import { supportLayout } from '../lib/content-layout.mjs';
     <picture><source srcset={site.poster} media="(prefers-reduced-motion: reduce)" /><img src={site.hero} alt="Anna Worthington Art Therapy" width="1040" height="697" fetchpriority="high" /></picture>
     <a class="hero-scroll" href="#what-is-art-therapy" aria-label="Scroll to What is art therapy?"><span aria-hidden="true">↓</span></a>
   </section>
-  <section class="intro-section section" id="what-is-art-therapy"><div class="prose intro-copy" set:html={site.definition} /></section>
+  <section class="intro-section section" id="what-is-art-therapy"><div class="prose intro-copy" set:html={linkedHeading(site.definition, '/new-page')} /></section>
   <section class="support-section section" id="what-can-it-help-with"><div class="prose support-copy" set:html={supportLayout(site.support)} /></section>
-  <section class="offer-section section" id="what-i-offer"><div class="prose" set:html={site.offer} /></section>
+  <section class="offer-section section" id="what-i-offer"><div class="prose" set:html={linkedHeading(site.offer, '/how-it-works')} /></section>
   <section class="testimonials-section section" id="testimonials"><div class="prose testimonials" set:html={site.testimonials} /></section>
   <section class="social-section section" id="social"><h2>Art therapy on social</h2><div class="social-grid">{site.social.map((item,index)=><a href={item.url} aria-label={`View artwork ${index+1} on Instagram`}><img src={item.image} alt={item.alt} loading="lazy" decoding="async" width="640" height="640" /></a>)}</div><a class="button" href="/contact">Get in touch</a></section>
 </Base>

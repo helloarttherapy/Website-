@@ -1,18 +1,19 @@
 ---
 const links = [{href:'/new-page',label:'What is Art Therapy?'},{href:'/how-it-works',label:'How it works'},{href:'/about-1',label:'About'},{href:'/blog',label:'Blog'},{href:'/contact',label:'Contact'}];
 const path=Astro.url.pathname;
+const current = (href: string) => path === href ? 'page' : path.startsWith(`${href}/`) ? 'location' : undefined;
 ---
 <header class="site-header">
   <nav class="desktop-nav nav-left" aria-label="Main navigation">
-    {links.slice(0,3).map(link=><a href={link.href} aria-current={path.startsWith(link.href)?'page':undefined}>{link.label}</a>)}
+    {links.slice(0,3).map(link=><a href={link.href} aria-current={current(link.href)}>{link.label}</a>)}
   </nav>
   <a href="/" class="wordmark">Hello Art Therapy</a>
   <nav class="desktop-nav nav-right" aria-label="Blog and contact">
-    {links.slice(3).map(link=><a href={link.href} aria-current={path.startsWith(link.href)?'page':undefined}>{link.label}</a>)}
+    {links.slice(3).map(link=><a href={link.href} aria-current={current(link.href)}>{link.label}</a>)}
   </nav>
   <details class="mobile-menu">
     <summary aria-label="Navigation menu"><span class="menu-icon" aria-hidden="true"></span></summary>
-    <nav aria-label="Mobile navigation">{links.map(link=><a href={link.href} aria-current={path.startsWith(link.href)?'page':undefined}>{link.label}</a>)}</nav>
+    <nav aria-label="Mobile navigation">{links.map(link=><a href={link.href} aria-current={current(link.href)}>{link.label}</a>)}</nav>
   </details>
 </header>
 <script>

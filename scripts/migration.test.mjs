@@ -86,3 +86,55 @@ test('contact form retains the original copy and submits to the server endpoint'
   assert.ok($('input[name="lastName"]').is('[required]'));
   assert.ok(!$('main').text().includes('Prepare email'));
 });
+
+test('page metadata describes each page and article structured data matches the published source',()=>{
+  const routes=['/','/new-page','/how-it-works','/about-1','/contact','/blog'];
+  const descriptions = routes.map(route=>{
+    const $=load(fs.readFileSync(fileFor(route),'utf8'));
+    const description=$('meta[name="description"]').attr('content');
+    assert.equal($('meta[property="og:description"]').attr('content'),description);
+    assert.equal($('link[rel="canonical"]').attr('href'),`https://www.annaworthingtonarttherapy.com${route}`);
+    const schema=JSON.parse($('script[type="application/ld+json"]').html());
+    assert.ok(schema['@graph'].some(entity=>entity['@type']==='WebSite' && entity.name==='Hello Art Therapy'));
+    return description;
+  });
+  assert.equal(new Set(descriptions).size,routes.length,'Core pages share generic descriptions');
+  for(const post of site.posts){
+    const $=load(fs.readFileSync(fileFor(post.url),'utf8'));
+    const schema=JSON.parse($('script[type="application/ld+json"]').html());
+    const article=schema['@graph'].find(entity=>entity['@type']==='BlogPosting');
+    assert.equal(article.headline,post.title);
+    assert.equal(article.datePublished,post.date);
+    assert.equal(article.url,`https://www.annaworthingtonarttherapy.com${post.url}`);
+    assert.deepEqual(article.keywords || [],post.tags);
+    const author=schema['@graph'].find(entity=>entity['@id']===article.author['@id']);
+    assert.equal(author.name,'Anna Worthington');
+    assert.ok(readableText(post.body).includes(article.description),'Description must be an original excerpt');
+    if(post.image) {
+      assert.deepEqual(article.image,[`https://www.annaworthingtonarttherapy.com${post.image}`]);
+      assert.ok(Number($('.article-cover').attr('width'))>0);
+      assert.ok(Number($('.article-cover').attr('height'))>0);
+    }
+  }
+  const missing=load(read('dist/404.html'));
+  assert.equal(missing('meta[name="robots"]').attr('content'),'noindex, follow');
+  assert.ok(!read('dist/sitemap-0.xml').includes('/404'));
+});
+
+test('site flow uses existing headings and article cards have one focusable destination',()=>{
+  const $=load(read('dist/index.html'));
+  assert.equal($('#what-is-art-therapy h2 a').attr('href'),'/new-page');
+  assert.equal($('#what-i-offer h2 a').attr('href'),'/how-it-works');
+  const blog=load(read('dist/blog/index.html'));
+  blog('.post-card').each((_,element)=>{
+    assert.equal(blog(element).find('a').length,1);
+    const image=blog(element).find('img');
+    if(image.length){ assert.ok(Number(image.attr('width'))>0); assert.ok(Number(image.attr('height'))>0); }
+  });
+  const therapy=load(read('dist/new-page/index.html'));
+  therapy('.therapy-chapter').each((_,element)=>{
+    const id=therapy(element).attr('aria-labelledby');
+    assert.equal(therapy(element).find(`h2[id="${id}"]`).length,1);
+  });
+  assert.equal(therapy('article a').filter((_,element)=>!therapy(element).text().trim()&&!therapy(element).find('img').length).length,0);
+});
