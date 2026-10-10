@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+const amazon = 'https://www.amazon.com.au/dp/B0HMHYSVPV';
+const title = 'Art for the Everyday';
+const subtitle = '24 creative exercises for curiosity and self-reflection';
+const description = 'Art for the Everyday brings together 24 creative exercises for curiosity and self-reflection.';
+const cover = '/images/art-for-the-everyday-cover.jpg';
+const bookSchema = {
+  '@context': 'https://schema.org', '@type': 'Book',
+  '@id': new URL('/art-for-the-everyday#book', Astro.site).href,
+  name: `${title}: ${subtitle}`, description,
+  url: new URL('/art-for-the-everyday', Astro.site).href,
+  image: new URL(cover, Astro.site).href,
+  author: {'@type': 'Person', name: 'Anna Worthington', url: new URL('/about-1', Astro.site).href},
+  isbn: '9798177558073', numberOfPages: 70,
+  bookFormat: 'https://schema.org/Paperback', inLanguage: 'en',
+  datePublished: '2026-10-07', sameAs: amazon
+};
+---
+<Base title={title} description={description} image={cover}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(bookSchema)} />
+  <header class="book-hero content-width">
+    <div>
+      <h1>{title}</h1>
+      <p class="book-subtitle">{subtitle}</p>
+      <p class="book-author">By <a href="/about-1">Anna Worthington</a></p>
+      <p class="book-lead">Make a little space for creativity in everyday life.</p>
+      <a class="button" href={amazon}>Buy on Amazon</a>
+    </div>
+    <div class="book-cover"><img src={cover} alt="Art for the Everyday by Anna Worthington — book cover" width="404" height="522" fetchpriority="high" /></div>
+  </header>
+  <div class="book-body content-width">
+    <section class="prose" aria-labelledby="inside-the-book">
+      <h2 id="inside-the-book">Inside the book</h2>
+      <p>Art for the Everyday brings together 24 creative exercises for curiosity and self-reflection. With pencils, paper, everyday objects and simple collage materials, Anna Worthington invites you to look closely, follow unexpected marks, try another viewpoint and notice what emerges through making.</p>
+      <p>Developed from themes in the Hello Art Therapy blog, the workbook includes short readings, step-by-step activities, smaller versions for when time or energy is limited, drawing space and questions for reflection. Activities range from five-minute experiments to longer sessions, with room to choose your own pace.</p>
+      <a href="/blog">Read the Hello Art Therapy blog</a>
+    </section>
+    <section class="book-details" aria-labelledby="book-details">
+      <h2 id="book-details">Book details</h2>
+      <dl>
+        <div><dt>Format</dt><dd>Paperback</dd></div>
+        <div><dt>Print length</dt><dd>70 pages</dd></div>
+        <div><dt>Language</dt><dd>English</dd></div>
+        <div><dt>Published</dt><dd><time datetime="2026-10-07">7 October 2026</time></dd></div>
+        <div><dt>ISBN-13</dt><dd>979-8177558073</dd></div>
+      </dl>
+    </section>
+  </div>
+  <section class="book-invitation content-width prose" aria-labelledby="make-a-practice">
+    <h2 id="make-a-practice">Make a practice of your own</h2>
+    <p>You do not need to call yourself an artist to begin. Start with what is here, explore the materials and make a practice of your own.</p>
+    <p class="book-note">An educational creative workbook for young people and adults. It does not replace individual therapy, diagnosis or treatment.</p>
+    <a class="button" href={amazon}>Buy on Amazon</a>
+  </section>
+</Base>

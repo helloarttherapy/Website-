@@ -71,7 +71,8 @@ test('navigation and page copy preserve the original labels and published conten
   assert.equal(firstIntro,'A vulnerable little baby was born, as the ancient story goes, in the most lowly of circumstances.');
   const leadingBreakIntro = blog('.post-card').filter((_,el)=>blog(el).find('h2 a').text()==='The Kardashians and God').find('.post-excerpt').text().trim();
   assert.ok(leadingBreakIntro.startsWith('God and online celebrity culture. Two concepts'), 'Leading line breaks must not create an empty card intro');
-  assert.equal($('footer .footer-top nav').text().replace(/\s+/g,''),'AboutHowitworksGetintouchBlogInstagramLinkedinSpotify');
+  assert.equal($('footer .footer-top nav').text().replace(/\s+/g,''),'AboutHowitworksBlogArtfortheEverydayGetintouch');
+  assert.equal($('footer .footer-socials').text().replace(/\s+/g,''),'InstagramLinkedinSpotifyYouTube');
   assert.ok(!read('src/styles/global.css').includes('✳'));
   assert.ok(!$('body').text().includes('Sometimes, there’s'));
 });
@@ -83,7 +84,7 @@ test('restructured sessions, biography and therapy pages retain the original wor
     assert.equal($('main a[href="/contact"]').length,1,`Duplicate contact button: ${route}`);
   }
   const therapy=load(read('dist/new-page/index.html'));
-  assert.equal(readableText(therapy('article').html()),readableText(site.therapy.replace(/^\s*<h2>What is Art Therapy\?<\/h2>/,'')));
+  assert.equal(readableText(therapy('.therapy-hero').html() + therapy('article').html()),readableText(site.therapy.replace(/^\s*<h2>What is Art Therapy\?<\/h2>/,'')));
 });
 
 test('contact form retains the original copy and submits to the server endpoint',()=>{

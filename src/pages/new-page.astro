@@ -8,10 +8,11 @@ const therapy = therapyLayout(site.therapy.replace(/^\s*<h2>What is Art Therapy\
 ---
 <Base title="What is Art Therapy?">
   <header class="page-heading"><h1>What is Art Therapy?</h1></header>
-  <div class="reading-layout content-width">
+  <div class="therapy-hero content-width" set:html={therapy.figure.replace('loading="lazy"', 'loading="eager" fetchpriority="high"')} />
+  <div class="reading-layout therapy-reading content-width">
   <PageOutline title="What is Art Therapy?" links={therapy.sections.map((section,index)=>({href:`#therapy-section-${index}`,label:section.title}))} />
   <article class="prose article-body therapy-body">
-    <div class="therapy-lead"><div set:html={therapy.figure} /><div set:html={therapy.introduction} /></div>
+    <div class="therapy-lead" set:html={therapy.introduction} />
     <div class="therapy-opening" set:html={therapy.opening} />
     {therapy.sections.map((section, index) => <section class="therapy-chapter" aria-labelledby={`therapy-section-${index}`}>
       <h2 class="therapy-section-title" id={`therapy-section-${index}`}>{section.title === 'So with all this in mind… What do we get up to in art therapy?' ? <a class="section-link" href="/how-it-works#sessions">{section.title}</a> : section.title}</h2>
