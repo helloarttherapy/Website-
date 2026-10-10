@@ -88,7 +88,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .footer-top { display: grid; grid-template-columns: 280px minmax(0,1fr); gap: 48px; align-items: center; }
 .footer-logo { display: block; max-width: 300px; }
 .footer-logo img { width: 100%; }
-.footer-top nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; }
+.footer-top nav { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 24px; }
 .footer-top nav a { display: inline-flex; align-items: center; padding: 4px 0; min-height: 44px; text-decoration-color: #1a1f2d55; }
 .footer-top nav .footer-cta { margin-left: auto; padding: 8px 18px; border: 1px solid var(--button); border-radius: 999px; text-decoration-line: none; transition: background-color .2s ease; }
 .footer-top nav .footer-cta:hover { background: #ffffff55; }
