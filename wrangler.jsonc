@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "hello-art-therapy",
+  "account_id": "f42f869e89836bba54e556cb172b1226",
   "compatibility_date": "2026-10-10",
   "assets": {
     "directory": "./dist",

@@ -21,7 +21,7 @@ This is a static site deployed with **Cloudflare Workers Static Assets**. `wrang
 1. Connect the art therapy Git repository to a Cloudflare Workers project.
 2. Build command: `npm run build`.
 3. Deploy command: `npx wrangler deploy`.
-4. For manual deployment, create the separate profile with `npx wrangler auth create hello-art-therapy`, sign in as `anna@helloarttherapy.com`, then run `npm run deploy`. The deploy script explicitly uses this profile to keep account selection separate. Select the intended art therapy account, or provide `CLOUDFLARE_ACCOUNT_ID` locally. For CI, use Cloudflare's Git integration or repository secrets; never commit tokens.
+4. For manual deployment, create the separate profile with `npx wrangler auth create hello-art-therapy`, sign in as `anna@helloarttherapy.com`, then run `npm run deploy`. The deploy script explicitly uses this profile, and `wrangler.jsonc` pins Anna's account (`f42f869e89836bba54e556cb172b1226`). Cloudflare requires the account email to be verified before publishing Workers. For CI, use Cloudflare's Git integration or repository secrets; never commit tokens.
 5. Verify the generated workers.dev address before adding the existing custom domain in Cloudflare. Domain cutover and retiring Squarespace require a separate migration decision.
 
 For an existing Cloudflare **Pages** project, use build command `npm run build` and output directory `dist`. The static output, `_headers`, `_redirects` and `404.html` work on Pages as well.
