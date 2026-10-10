@@ -1,0 +1,17 @@
+You are maintaining Anna Worthington's live Hello Art Therapy website. This is the H Art project, not Tundra. Restore context from this handover, then follow my next request.
+
+Workspace: /Users/administrator/Documents/ChatGPT/H Art. GitHub: https://github.com/helloarttherapy/Website- (main branch). Live: https://www.annaworthingtonarttherapy.com/. Preview: https://hello-art-therapy.hello-art-therapy.workers.dev/. This snapshot is dated 10 October 2026; verify the current state before changing anything.
+
+First read applicable AGENTS.md instructions, README.md, package.json, wrangler.jsonc and the relevant source. Inspect git status, diffs and recent commits. The saved setup and flow diagram are in output/pdf/Hello-Art-Therapy-Site-Setup.pdf; its generator is docs/generate-site-guide.py.
+
+Stack: Astro static build, Node.js 22, Cloudflare Workers Static Assets. Worker: hello-art-therapy. Use Wrangler profile hello-art-therapy and Anna's Cloudflare account anna@helloarttherapy.com, account ID f42f869e89836bba54e556cb172b1226. GoDaddy registers the domain; Cloudflare manages DNS and HTTPS. Root redirects to HTTPS www. Deployment is manual; a GitHub push does not publish. Config is pinned in wrangler.jsonc.
+
+Preserve existing copy, navigation labels, dated article URLs, original artwork and animated hero star unless I request changes. Headings/wordmark use Belleza; body uses Tenor Sans, both self-hosted. Footer cyan is #97e7f7; compact pill CTAs use #475b60. Mobile footer links align left with the contact pill below. /new-page has a sticky mobile section menu. Desktop has a book strip under the header. Book page: /art-for-the-everyday; Amazon: https://www.amazon.com.au/dp/B0HMHYSVPV.
+
+src/data/site.json contains migrated copy and 18 articles. src/data/podcast-episodes.json maps seven articles to matching Spotify episodes and YouTube videos; the other eleven use clearly labelled show/channel links. Shared article rendering is in src/lib/content-layout.mjs. Keep the four-line blog-card intros and SEO metadata intact.
+
+Contact posts to /api/contact in worker/index.mjs. The EMAIL binding sends from website@annaworthingtonarttherapy.com to anna@helloarttherapy.com with the visitor as Reply-To. It validates and rate limits, without storing enquiry contents. On accepted submission, hide the form and show exactly: "Thank you for message, I will be in touch shortly." Failure retains the form and message. Preserve existing email-domain DNS.
+
+At this snapshot, unrelated local drafts exist in src/pages/blog/[...slug].astro, src/components/BlogVideo.astro, src/data/blog-videos.json and youtube-api/. Inspect and preserve them; do not stage or deploy them unless my request explicitly includes them. Build an isolated release from committed HEAD plus only intended task changes when drafts remain.
+
+For requested changes, run npm run check, npm run build, then npm test; tests require the built dist folder. Verify affected desktop/mobile pages. Commit and push only intended files. Deploy the verified release with npx wrangler deploy --profile hello-art-therapy, then verify the public result. Keep credentials out of code and documentation. Summarize the current state before continuing with my next request.

@@ -21,6 +21,7 @@ styles={
  'head':ParagraphStyle('head',fontName='Helvetica-Bold',fontSize=13,leading=17,textColor=TEAL),
  'table':ParagraphStyle('table',fontName='Helvetica',fontSize=9.2,leading=13,textColor=INK),
  'code':ParagraphStyle('code',fontName='Courier',fontSize=9,leading=14,textColor=INK),
+ 'prompt':ParagraphStyle('prompt',fontName='Helvetica',fontSize=9.4,leading=13,textColor=INK,splitLongWords=True),
 }
 c=canvas.Canvas(str(PDF),pagesize=A4)
 c.setTitle('Hello Art Therapy - Site setup and platform guide')
@@ -42,10 +43,10 @@ def start(n,title,subtitle):
 def heading(text,y):
  return para(text,y,'head')
 
-def table(rows,widths,y):
+def table(rows,widths,y,padding=7):
  cells=[[Paragraph(v,styles['table']) for v in row] for row in rows]
  t=Table(cells,colWidths=widths,hAlign='LEFT')
- t.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),CYAN),('VALIGN',(0,0),(-1,-1),'TOP'),('TOPPADDING',(0,0),(-1,-1),7),('BOTTOMPADDING',(0,0),(-1,-1),7),('LEFTPADDING',(0,0),(-1,-1),10),('RIGHTPADDING',(0,0),(-1,-1),10),('LINEBELOW',(0,0),(-1,-1),.5,GREY)]))
+ t.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),CYAN),('VALIGN',(0,0),(-1,-1),'TOP'),('TOPPADDING',(0,0),(-1,-1),padding),('BOTTOMPADDING',(0,0),(-1,-1),padding),('LEFTPADDING',(0,0),(-1,-1),10),('RIGHTPADDING',(0,0),(-1,-1),10),('LINEBELOW',(0,0),(-1,-1),.5,GREY)]))
  _,h=t.wrap(CW,H); t.drawOn(c,M,y-h); return y-h-20
 
 def flow():
@@ -89,7 +90,7 @@ y=para('Squarespace supplied the original content and artwork. Its account and b
 c.showPage()
 
 y=start(2,'Platforms and connections','Where each part lives and what it is responsible for.')
-rows=[['<b>Platform</b>','<b>Role in this setup</b>'],['GoDaddy','Registers and renews <b>annaworthingtonarttherapy.com</b>. Nameservers delegate DNS to Cloudflare.'],['Cloudflare','Authoritative DNS, HTTPS certificates, redirects, Worker hosting, static assets and contact email delivery. Account: <b>anna@helloarttherapy.com</b>.'],['GitHub','Source repository: <link href="https://github.com/helloarttherapy/Website-" color="#475b60">helloarttherapy/Website-</link>. Main branch: <b>main</b>. GitHub Actions runs checks, a build and tests.'],['Astro + Node.js','Astro creates the static website. Use <b>Node.js 22</b> for maintenance. Images and Belleza / Tenor Sans fonts are bundled locally.'],['Google Workspace / Gmail','Receives contact enquiries at <b>anna@helloarttherapy.com</b>. The separate mail domain <b>helloarttherapy.com</b> keeps its existing Google mail setup.'],['Amazon','External purchase destination for <b>Art for the Everyday</b>. <link href="https://www.amazon.com.au/dp/B0HMHYSVPV" color="#475b60">amazon.com.au/dp/B0HMHYSVPV</link>'],['Spotify + other socials','External links from the footer. Spotify points to the <link href="https://open.spotify.com/show/2HYK9V80ALHtTqfCFbb2lt" color="#475b60">Words, Pictures and Things show</link>.'],['Squarespace','Previous website platform. Public content was migrated; the old account and billing have not been cancelled.']]
+rows=[['<b>Platform</b>','<b>Role in this setup</b>'],['GoDaddy','Registers and renews <b>annaworthingtonarttherapy.com</b>. Nameservers delegate DNS to Cloudflare.'],['Cloudflare','Authoritative DNS, HTTPS certificates, redirects, Worker hosting, static assets and contact email delivery. Account: <b>anna@helloarttherapy.com</b>.'],['GitHub','Source repository: <link href="https://github.com/helloarttherapy/Website-" color="#475b60">helloarttherapy/Website-</link>. Main branch: <b>main</b>. GitHub Actions runs checks, a build and tests.'],['Astro + Node.js','Astro creates the static website. Use <b>Node.js 22</b> for maintenance. Images and Belleza / Tenor Sans fonts are bundled locally.'],['Google Workspace / Gmail','Receives contact enquiries at <b>anna@helloarttherapy.com</b>. The separate mail domain <b>helloarttherapy.com</b> keeps its existing Google mail setup.'],['Amazon','External purchase destination for <b>Art for the Everyday</b>. <link href="https://www.amazon.com.au/dp/B0HMHYSVPV" color="#475b60">amazon.com.au/dp/B0HMHYSVPV</link>'],['Spotify + YouTube','Links appear on all 18 articles and in the footer. Seven articles link to matching episodes; eleven link to the main show and channel.'],['Squarespace','Previous website platform. Public content was migrated; the old account and billing have not been cancelled.']]
 y=table(rows,[113,CW-113],y)
 y=heading('Domain and hosting details',y)
 y=para('<b>Cloudflare nameservers</b><br/>andronicus.ns.cloudflare.com<br/>chelsea.ns.cloudflare.com<br/><br/><b>Worker:</b> hello-art-therapy<br/><b>Preview:</b> <link href="https://hello-art-therapy.hello-art-therapy.workers.dev/" color="#475b60">hello-art-therapy.hello-art-therapy.workers.dev</link>',y,'small')
@@ -99,17 +100,19 @@ c.showPage()
 y=start(3,'Editing and publishing','Use this process whenever website copy, layout, links or artwork changes.')
 y=heading('1. Edit the website files',y)
 y=para('Local project folder:<br/><font face="Courier" size="9">/Users/administrator/Documents/ChatGPT/H Art</font>',y)
-y=table([['<b>What to update</b>','<b>File or folder</b>'],['Migrated copy and articles','src/data/site.json'],['Page layouts, contact copy and book','src/pages/'],['Navigation and footer links','src/components/Header.astro<br/>src/components/Footer.astro'],['Colours, buttons and spacing','src/styles/global.css'],['Images and legacy redirects','public/images/ and public/_redirects'],['Search metadata','src/lib/seo.mjs and astro.config.mjs'],['Contact delivery / hosting','worker/index.mjs and wrangler.jsonc']],[184,CW-184],y)
+y=table([['<b>What to update</b>','<b>File or folder</b>'],['Migrated copy and articles','src/data/site.json'],['Page layouts, contact copy and book','src/pages/'],['Navigation and footer links','src/components/Header.astro<br/>src/components/Footer.astro'],['Colours, buttons and spacing','src/styles/global.css'],['Images and legacy redirects','public/images/ and public/_redirects'],['Search metadata','src/lib/seo.mjs and astro.config.mjs'],['Podcast / video destinations','src/data/podcast-episodes.json<br/>src/lib/content-layout.mjs'],['Contact delivery / hosting','worker/index.mjs and wrangler.jsonc']],[184,CW-184],y,padding=4)
 y=heading('2. Preview and verify',y)
 y=para('For a fresh checkout, install dependencies with <font face="Courier">npm ci</font>. Start a local preview while editing with <font face="Courier">npm run dev</font>. Before publishing, run:',y)
 y=para('npm run check<br/>npm run build<br/>npm test',y,'code')
 y=para('The migration tests read the built <b>dist</b> folder, so build before running them. Check the changed pages on desktop and mobile, along with navigation and links.',y,'small')
 y=heading('3. Save to GitHub, then publish',y)
-y=para('Review the diff, commit the intended changes and push to <b>main</b>. GitHub Actions runs validation. Publish from the intended checkout using:',y)
+y=para('Review the diff, commit intended changes and push to <b>main</b>. Preserve unrelated local drafts. When drafts remain, build an isolated release from committed HEAD plus only intended changes. Publish the verified release using:',y)
 y=para('npm run deploy',y,'code')
 y=para('This builds the site and deploys with Wrangler profile <b>hello-art-therapy</b> to Anna\'s pinned Cloudflare account. A GitHub push alone does not publish the site.',y,'small')
 y=heading('4. Check the live result',y)
 y=para('Open the live website and verify the changed pages. For contact changes, submit a clearly labelled test and confirm it reaches Anna\'s inbox. Keep credentials out of source files and Git.',y)
+if y < 57:
+ raise ValueError(f'Publishing instructions overlap the footer: y={y:.1f}')
 c.showPage()
 
 y=start(4,'Site flow and upkeep','The main visitor routes, email configuration and recovery references.')
@@ -118,10 +121,19 @@ y=para('<b>Homepage</b> introduces art therapy, benefits, Anna\'s offer and test
 y=table([['<b>Page</b>','<b>Live path</b>'],['What is Art Therapy?','/new-page'],['How it works','/how-it-works'],['About','/about-1'],['Blog and individual articles','/blog and the preserved dated article URLs'],['Contact','/contact'],['Art for the Everyday','/art-for-the-everyday<br/>Linked from the footer; Buy on Amazon opens Amazon.']],[184,CW-184],y)
 y=heading('Contact email setup',y)
 y=para('<b>Endpoint:</b> POST /api/contact<br/><b>From:</b> website@annaworthingtonarttherapy.com<br/><b>To:</b> anna@helloarttherapy.com<br/><b>Reply-To:</b> the visitor\'s email address<br/><b>Confirmation:</b> Thank you for message, I will be in touch shortly.',y)
-y=para('Cloudflare Email Routing is enabled on the website domain with MX, SPF and DKIM records. Anna\'s inbox is a verified destination. Validation, a honeypot and a limit of 5 requests per 60 seconds help filter unwanted submissions. The form shows success only after email-provider acceptance.',y,'small')
+y=para('Cloudflare Email Routing is enabled on the website domain with MX, SPF and DKIM records. Anna\'s inbox is a verified destination. Validation, a honeypot and a limit of 5 requests per 60 seconds help filter unwanted submissions. After email-provider acceptance, the form hides and the confirmation receives focus. Failure retains the form and message for retry.',y,'small')
 y=heading('Troubleshooting and recovery',y)
 y=para('<b>A recent edit is missing:</b> confirm the correct checkout was built and deployed; saving or pushing code is not enough.<br/><b>A contact message fails:</b> check Cloudflare\'s EMAIL binding and verified destination, then use the direct email link while delivery is repaired.<br/><b>Restore a previous version:</b> use Cloudflare\'s Worker deployment history, or rebuild and deploy a known Git commit.',y,'small')
 y=para('<b>DNS backup:</b> migration/godaddy-dns-before-cloudflare.json<br/><b>Technical reference:</b> README.md and wrangler.jsonc in the GitHub repository.',y,'small')
-y=para('Launch verification covered all 102 sitemap pages, canonical links, descriptions, fonts, redirects and the 404 response. Contact email delivery was confirmed in Anna\'s inbox. Search Console submission remains a separate follow-up.',y,'small')
+y=para('Launch verification covered all 102 sitemap pages, canonical links, descriptions, fonts, redirects and the 404 response. Contact email delivery was confirmed in Anna\'s inbox. All 18 live articles now display Spotify and YouTube links. Search Console submission remains a separate follow-up.',y,'small')
+c.showPage()
+
+y=start(5,'Restarting in Codex','Paste the prompt below into a new Codex chat opened in the H Art project. Then send your next website request.')
+y=para('A plain-text copy is also saved as <b>docs/Codex-Site-Handover.txt</b>. This is a dated snapshot: the new chat should inspect the repository before making changes.',y,'small')
+prompt=(ROOT/'docs/Codex-Site-Handover.txt').read_text().strip()
+for block in prompt.split('\n\n'):
+ y=para(escape(block),y,'prompt')
+if y < 57:
+ raise ValueError(f'Handover prompt overlaps the footer: y={y:.1f}')
 c.save()
 print(PDF)
