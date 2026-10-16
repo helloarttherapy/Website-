@@ -16,10 +16,11 @@ function site({ hostname = HOST, choice, referrer = 'https://www.google.com/sear
   panel.dataset = { measurementId: ID, productionHostname: HOST };
   panel.querySelector = selector => selector === '[data-analytics-allow]' ? allow : decline;
   const store = new Map(choice === undefined ? [] : [['helloart.analytics.v1', JSON.stringify(choice)]]);
-  const scripts = [], events = new Map(), expiredCookies = [];
+  const scripts = [], events = new Map(), windowEvents = new Map(), expiredCookies = [];
   const win = {
     location: { hostname, origin: `https://${hostname}`, pathname: '/contact', href: `https://${hostname}/contact?email=private@example.com#message` },
-    localStorage: { getItem: key => store.get(key) ?? null, setItem: (key, value) => store.set(key, value) }
+    localStorage: { getItem: key => store.get(key) ?? null, setItem: (key, value) => store.set(key, value) },
+    addEventListener: (name, handler) => windowEvents.set(name, handler)
   };
   const doc = {
     referrer,
@@ -34,6 +35,7 @@ function site({ hostname = HOST, choice, referrer = 'https://www.google.com/sear
   return {
     panel, allow, decline, settings, scripts, store, win, expiredCookies,
     emit: (name, event = {}) => events.get(name)?.(event),
+    emitWindow: (name, event = {}) => windowEvents.get(name)?.(event),
     commands: () => (win.dataLayer || []).map(command => Array.from(command))
   };
 }
@@ -53,6 +55,22 @@ test('analytics sends nothing until an affirmative choice and never loads on pre
     assert.deepEqual(preview.scripts, []);
     assert.equal(preview.settings.hidden, true);
   }
+});
+
+test('withdrawal applies to other open tabs and pages restored from the back button', () => {
+  const page = site({ choice: { allowed: true, savedAt: Date.now() } });
+  page.store.set('helloart.analytics.v1', JSON.stringify({ allowed: false, savedAt: Date.now() }));
+  page.emitWindow('storage', { key: 'helloart.analytics.v1' });
+  page.emit('helloart:enquiry-success');
+  assert.equal(page.win[`ga-disable-${ID}`], true);
+  assert.equal(page.commands().filter(command => command[0] === 'event').length, 0);
+  page.store.set('helloart.analytics.v1', JSON.stringify({ allowed: true, savedAt: Date.now() }));
+  page.emitWindow('pageshow');
+  assert.equal(page.win[`ga-disable-${ID}`], false);
+  assert.equal(page.scripts.length, 1);
+  page.store.set('helloart.analytics.v1', JSON.stringify({ allowed: false, savedAt: Date.now() }));
+  page.emitWindow('pageshow');
+  assert.equal(page.win[`ga-disable-${ID}`], true);
 });
 
 test('accepting loads only Anna’s tag with sanitized URLs and advertising disabled', () => {

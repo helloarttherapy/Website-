@@ -94,6 +94,17 @@ export function initAnalytics({ window: win = window, document: doc = document }
   else if (previous === false) stop();
   else panel.hidden = false;
 
+  // Respect a choice changed in another tab or while this page was in back/forward cache.
+  const syncChoice = () => {
+    const allowed = readChoice();
+    if (allowed === true) start(); else stop();
+    panel.hidden = allowed !== null;
+  };
+  win.addEventListener('storage', event => {
+    if (event.key === CHOICE_KEY || event.key === null) syncChoice();
+  });
+  win.addEventListener('pageshow', syncChoice);
+
   // Only fixed destination categories are sent, never link text or query strings.
   doc.addEventListener('click', event => {
     const link = event.target.closest?.('a[href]');
