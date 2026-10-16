@@ -62,6 +62,18 @@ Cloudflare Email Routing is enabled on `annaworthingtonarttherapy.com`, which ha
 
 If delivery fails or the binding is absent, the form returns HTTP 503 and its original error message. It never reports success without provider acceptance.
 
+## Google Analytics
+
+Google Analytics 4 was set up on 16 October 2026 under **anna@helloarttherapy.com**, in its own **Hello Art Therapy** account. The property is **Hello Art Therapy website**, with Melbourne reporting time and Australian dollars. Account ID: `412247588`; property ID: `559262305`; web stream ID: `16139384389`; measurement ID: `G-9LVJVK62SS`. These identifiers are configuration, not credentials. [Open Anna's Analytics property](https://analytics.google.com/analytics/web/#/a412247588p559262305/reports/intelligenthome) and select Anna's Google account if prompted.
+
+`src/data/analytics.json` records the property and production hostname. `src/components/Analytics.astro` supplies the optional analytics choice and footer preferences; `src/lib/analytics-client.mjs` loads the Google tag only after consent and only on `www.annaworthingtonarttherapy.com`. Local development and Workers preview visits do not send analytics. No Google Analytics request is made before permission or after declining. The visitor can change their choice in the footer; declining disables collection and clears the site's GA cookies. The choice expires after 180 days; analytics cookies are configured for 90 days.
+
+Page views include a page URL without query strings or fragments and a referrer reduced to its origin. Fixed `outbound_click` categories count Amazon, Spotify, YouTube, Instagram, LinkedIn and email clicks without copying link text, email addresses or URL queries. `generate_lead` is emitted only after the contact endpoint accepts a submission, with the fixed method `contact_form`; names, emails, subjects and messages never enter analytics. Amazon clicks measure an outbound visit, not a completed Amazon purchase.
+
+Enhanced measurement is disabled in the web stream, including automatic form tracking. Optional account data sharing, Google signals and advertising personalization are disabled. `/analytics-privacy` explains the actual setup and links to Google's processing notice. No Tag Manager application account or advertising link is required for the site's direct Google tag integration.
+
+Before publishing analytics changes, run the normal check, build and test sequence. The analytics tests verify consent, production-host restrictions, URL sanitization, fixed event payloads and withdrawal. Check a consenting visit in Google's Realtime report after deployment. Standard reports can take time to populate; declined visits are intentionally absent.
+
 ## Domain connection
 
 The domain remains registered at GoDaddy. Its nameservers are now `andronicus.ns.cloudflare.com` and `chelsea.ns.cloudflare.com`, and Anna's Cloudflare zone is active. The original GoDaddy records are backed up in `migration/godaddy-dns-before-cloudflare.json`. All seven service records were imported before the nameserver change; the Squarespace verification record and GoDaddy Domain Connect record are retained.

@@ -42,6 +42,7 @@ import Base from '../layouts/Base.astro';
       const introduction = document.querySelector<HTMLElement>('#form-introduction');
       if (introduction) introduction.hidden = true;
       status.focus();
+      document.dispatchEvent(new Event('helloart:enquiry-success'));
     } catch {
       status.textContent = 'Unable to submit form. Please try again later.';
     } finally {

@@ -1,0 +1,39 @@
+---
+import analytics from '../data/analytics.json';
+const configured = /^G-[A-Z0-9]+$/.test(analytics.measurementId || '');
+---
+{configured && <div class="analytics-settings-row">
+  <a href="/analytics-privacy">Privacy</a>
+  <button type="button" class="analytics-settings" data-analytics-settings hidden>Analytics preferences</button>
+</div>}
+{configured && <aside class="analytics-choice" data-analytics-choice data-measurement-id={analytics.measurementId} data-production-hostname={analytics.productionHostname} aria-label="Optional analytics" hidden>
+  <div>
+    <h2>Optional analytics</h2>
+    <p>May we use Google Analytics cookies to understand how this website is used? Your choice will not affect the site or contact form. <a href="/analytics-privacy">Read about privacy</a>.</p>
+  </div>
+  <div class="analytics-actions">
+    <button type="button" class="button analytics-allow" data-analytics-allow>Allow analytics</button>
+    <button type="button" class="button analytics-decline" data-analytics-decline>No thanks</button>
+  </div>
+</aside>}
+<script>
+  import { initAnalytics } from '../lib/analytics-client.mjs';
+  initAnalytics();
+</script>
+<style>
+  .analytics-settings-row { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px 24px; margin-top: 12px; font-size: 14px; }
+  .analytics-settings-row a, .analytics-settings { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; text-decoration-color: #1a1f2d55; }
+  .analytics-settings { border: 0; background: none; cursor: pointer; padding: 0; min-height: 44px; }
+  .analytics-settings-row a { display: inline-flex; align-items: center; min-height: 44px; }
+  .analytics-choice { position: fixed; z-index: 50; bottom: max(20px, env(safe-area-inset-bottom)); right: 24px; width: min(640px, calc(100% - 48px)); max-height: calc(100svh - 120px); overflow: auto; padding: 24px; background: #f4f3ee; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 6px 32px #2930471f; }
+  .analytics-choice h2 { font-size: 26px; margin-bottom: 10px; }
+  .analytics-choice p { font-size: 15px; line-height: 1.65; margin-bottom: 18px; }
+  .analytics-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .analytics-decline { background: transparent; color: var(--button); }
+  .analytics-decline:hover { background: #e5e1d5; }
+  @media (max-width: 700px) {
+    .analytics-settings-row { justify-content: flex-start; }
+    .analytics-choice { right: 16px; width: calc(100% - 32px); padding: 20px; }
+    .analytics-actions .button { flex: 1; white-space: nowrap; padding-inline: 16px; }
+  }
+</style>
