@@ -26,6 +26,7 @@ const schema = structuredData({ siteUrl: Astro.site, canonical, title: title || 
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="canonical" href={canonical} />
+    <link rel="describedby" href="/llms.txt" type="text/plain" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="theme-color" content="#97e7f7" />
     <meta property="og:type" content={article ? 'article' : 'website'} />

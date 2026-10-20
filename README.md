@@ -38,6 +38,12 @@ Every article has Spotify and YouTube links at the beginning of its reading colu
 
 `src/lib/seo.mjs` supplies page-specific descriptions using complete sentences from the original copy, plus WebSite, Person, page and breadcrumb structured data. Articles include their original author, headline, publication date, image and tags as BlogPosting data; archives use CollectionPage. No ratings, addresses or clinical claims are added. Canonicals, social previews, robots and sitemap use the live original custom domain; the 404 page is noindex and excluded from the sitemap. Local image dimensions reserve space while images load. The launch audit verified all 102 sitemap pages return HTTP 200 with canonical links and descriptions, plus robots, sitemap, bundled fonts and stylesheet. Search Console submission remains separate.
 
+## LLM website guide
+
+`public/llms.txt` is published at `https://www.annaworthingtonarttherapy.com/llms.txt`. It follows the reference's concise introduction and grouped page-link structure, with therapy enquiries first, then session options, the book, podcast, videos and all 18 articles. On 20 October 2026 Anna confirmed the priority, equal online/in-person pricing for each session type, and individual, parent/child and group services including corporate groups. Group and corporate pricing is left to enquiry. The file uses the site's published individual and caregiver/child fees; update it when services, fees, article URLs or external links change.
+
+Every page's shared layout includes a `rel="describedby"` link to the guide. Cloudflare serves the file as UTF-8 plain text with a one-hour cache lifetime. It supplements the existing robots and sitemap files. This change does not alter visible page copy or styling.
+
 ## Cloudflare
 
 This is an Astro static build deployed with **Cloudflare Workers Static Assets**. `wrangler.jsonc` serves `dist` and the custom 404 page. `worker/index.mjs` handles `/api/contact`; other requests go to the static asset binding. No Astro server adapter or database is required.
